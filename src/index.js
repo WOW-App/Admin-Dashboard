@@ -18,7 +18,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
-
+import SignIn from "views/Pages/SignIn";
 import AuthLayout from "layouts/Auth.js";
 import AdminLayout from "layouts/Admin.js";
 import RTLLayout from "layouts/RTL.js"; // Chakra imports
@@ -28,14 +28,15 @@ import theme from "theme/theme.js";
 
 ReactDOM.render(
   <ChakraProvider theme={theme} resetCss={false} position="relative">
-    <HashRouter>
+    {/* <HashRouter>
       <Switch>
-        <Route path={`/auth`} component={AuthLayout} />
+        <Route path={`/`} component={AuthLayout} />
         <Route path={`/admin`} component={AdminLayout} />
         <Route path={`/rtl`} component={RTLLayout} />
         <Redirect from={`/`} to="/admin/dashboard" />
       </Switch>
-    </HashRouter>
+    </HashRouter> */}
+    <SignIn/>
   </ChakraProvider>,
   document.getElementById("root")
 );

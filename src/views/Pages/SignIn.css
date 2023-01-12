@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
+
+.admin-portal ,.phone-no , .sent-otp, .otp ,.remember-me ,.otp-signin ,.resend-otp{
+    font-family: 'Comfortaa', cursive;
+}
