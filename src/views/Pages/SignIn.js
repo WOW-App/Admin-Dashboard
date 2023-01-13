@@ -3,8 +3,6 @@ import axios from "axios";
 import './SignIn.css'
 import Dashboard from "../Dashboard/Dashboard";
 
-//import AdminLayout from "layouts/Admin.js";
-
 
 // Chakra imports
 import {
@@ -68,8 +66,6 @@ function checkAdmin(){
         check=true;
               
         break;
-      }else{
-        check=false
       }
      
     }
@@ -130,17 +126,17 @@ async function otpVerify(){
   
 }
 
+
 function SignIn() {
   // Chakra color mode
-
+  
+  var signin=JSON.parse(localStorage.getItem('Admin'));
   const [otp,setOtp]=useState(false);
-  const [admin,setAdmin]=useState(false);
+  const [admin,setAdmin]=useState(signin);
   const textColor = useColorModeValue("gray.700", "white");
   const bgForm = useColorModeValue("white", "navy.800");
-  const titleColor = useColorModeValue("gray.700", "blue.500");
-  const colorIcons = useColorModeValue("gray.700", "white");
-  const bgIcons = useColorModeValue("trasnparent", "navy.700");
-  const bgIconsHover = useColorModeValue("gray.50", "whiteAlpha.100");
+  
+
   return (
     <>
     
@@ -186,77 +182,6 @@ function SignIn() {
              Admin Panel
            </Text>
            
-           
-           {/* <HStack spacing='15px' justify='center' mb='22px'>
-             <Flex
-               justify='center'
-               align='center'
-               w='75px'
-               h='75px'
-               borderRadius='8px'
-               border={useColorModeValue("1px solid", "0px")}
-               borderColor='gray.200'
-               cursor='pointer'
-               transition='all .25s ease'
-               bg={bgIcons}
-               _hover={{ bg: bgIconsHover }}>
-               <Link href='#'>
-                 <Icon as={FaFacebook} color={colorIcons} w='30px' h='30px' />
-               </Link>
-             </Flex>
-             <Flex
-               justify='center'
-               align='center'
-               w='75px'
-               h='75px'
-               borderRadius='8px'
-               border={useColorModeValue("1px solid", "0px")}
-               borderColor='gray.200'
-               cursor='pointer'
-               transition='all .25s ease'
-               bg={bgIcons}
-               _hover={{ bg: bgIconsHover }}>
-               <Link href='#'>
-                 <Icon
-                   as={FaApple}
-                   color={colorIcons}
-                   w='30px'
-                   h='30px'
-                   _hover={{ filter: "brightness(120%)" }}
-                 />
-               </Link>
-             </Flex>
-             <Flex
-               justify='center'
-               align='center'
-               w='75px'
-               h='75px'
-               borderRadius='8px'
-               border={useColorModeValue("1px solid", "0px")}
-               borderColor='gray.200'
-               cursor='pointer'
-               transition='all .25s ease'
-               bg={bgIcons}
-               _hover={{ bg: bgIconsHover }}>
-               <Link href='#'>
-                 <Icon
-                   as={FaGoogle}
-                   color={colorIcons}
-                   w='30px'
-                   h='30px'
-                   _hover={{ filter: "brightness(120%)" }}
-                 />
-               </Link>
-             </Flex>
-           </HStack> */}
-           {/* <Text
-             fontSize='lg'
-             color='gray.400'
-             fontWeight='bold'
-             textAlign='center'
-             mb='22px'>
-             or
-           </Text> */}
            {otp==false && 
            <div className="phone-number">
            <FormControl>
@@ -316,7 +241,7 @@ function SignIn() {
                w='100%'
                h='45'
                mb='24px'
-               onClick={async()=>{await otpVerify() ; if(check==true){setAdmin(true)}else{console.log("You dont have access to this")} }}>
+               onClick={async()=>{await otpVerify() ; if(check==true){setAdmin(true); localStorage.setItem('Admin',true);localStorage.setItem('Token',JSON.stringify(token)) }else{localStorage.setItem('Admin',false); console.log("You dont have access to this")} }}>
                SIGN IN
              </Button>
            </FormControl>
@@ -366,7 +291,7 @@ function SignIn() {
      </Flex>
    </Flex>}
 
-   {admin==true &&<Dashboard/>}
+   {admin==true && <><Dashboard/></>}
    
 
 
