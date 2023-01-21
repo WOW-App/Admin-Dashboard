@@ -1,3 +1,16 @@
+import Sidebar from "components/Sidebar/Sidebar";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Logo from './favicon.png'
+import './Dashboard.css';
+import Hamburger from 'hamburger-react';
+
+import Notaries from "notaries";
+import Marketplace from "marketplace";
+import {BiArrowFromLeft} from "react-icons/bi";
+import axios from "axios";
 // Chakra imports
 import {
   Box,
@@ -24,14 +37,20 @@ import Card from "components/Card/Card.js";
 import BarChart from "components/Charts/BarChart";
 import LineChart from "components/Charts/LineChart";
 import IconBox from "components/Icons/IconBox";
+import List from "views/Pages/list";
+import NotaryList from "views/Pages/notaryList";
 // Custom icons
 import {
   CartIcon,
   DocumentIcon,
   GlobeIcon,
   WalletIcon,
+  PersonIcon,
+  SettingsIcon,
+  SupportIcon,
+  RocketIcon
 } from "components/Icons/Icons.js";
-import React from "react";
+import React, { useState } from "react";
 // Variables
 import {
   barChartData,
@@ -40,8 +59,86 @@ import {
   lineChartOptions,
 } from "variables/charts";
 import { pageVisits, socialTraffic } from "variables/general";
+import { useEffect } from "react";
+import { FaWindowMinimize } from "react-icons/fa";
+var admin=true;
+
+
+
+function logout(){
+  localStorage.setItem('Token',null);
+  localStorage.setItem('Admin',false);
+  admin=JSON.parse(localStorage.getItem('Admin'))
+}
+
+
+  
+  
+
+
 
 export default function Dashboard() {
+  const [usercount,setUsercount]=useState(0);
+  const [notariescount,setNotariescount]=useState(0);
+  const [marketpcount,setMarketpcount]=useState(0);
+  useEffect(()=>{
+    function data(){
+      
+      var config = {
+        method: 'get',
+        url: 'http://localhost:6969/api/user/count',
+        headers: { 
+          'Cookie': 'connect.sid=s%3AIKXKRINJ7qGKDO4Jg4hAFYtjSrDQIQWc.ir6iQKxm%2FkK99Rde8TJGhZemZEquUXuB2WQooDmDlo4'
+        }
+      };
+      
+      axios(config)
+      .then(function (response) {
+        setUsercount(JSON.stringify(response.data.users));
+        console.log("users are",{usercount})
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+      var config = {
+        method: 'get',
+        url: 'http://localhost:6969/api/notary/count',
+        headers: { 
+          'Cookie': 'connect.sid=s%3AIKXKRINJ7qGKDO4Jg4hAFYtjSrDQIQWc.ir6iQKxm%2FkK99Rde8TJGhZemZEquUXuB2WQooDmDlo4'
+        }
+      };
+      
+      axios(config)
+      .then(function (response) {
+        setNotariescount(JSON.stringify(response.data.notaries));
+        console.log("notariescount are",{notariescount})
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+      var config = {
+        method: 'get',
+        url: 'http://localhost:6969/api/marketplace/count',
+        headers: { 
+          'Cookie': 'connect.sid=s%3AIKXKRINJ7qGKDO4Jg4hAFYtjSrDQIQWc.ir6iQKxm%2FkK99Rde8TJGhZemZEquUXuB2WQooDmDlo4'
+        }
+      };
+      
+      axios(config)
+      .then(function (response) {
+        setMarketpcount(JSON.stringify(response.data.marketplace));
+        console.log("marketpcount are",{marketpcount})
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    }
+    data()
+
+  },[])
   // Chakra Color Mode
   const iconBlue = useColorModeValue("blue.500", "blue.500");
   const iconBoxInside = useColorModeValue("white", "white");
@@ -49,11 +146,42 @@ export default function Dashboard() {
   const tableRowColor = useColorModeValue("#F7FAFC", "navy.900");
   const borderColor = useColorModeValue("gray.200", "gray.600");
   const textTableColor = useColorModeValue("gray.500", "white");
+  const [user,setUser]=useState(false);
+  const [notary,setNotary]=useState(false);
+  const [marketplace,setMarketplace]=useState(false);
 
   const { colorMode } = useColorMode();
 
   return (
-    <Flex flexDirection='column' pt={{ base: "120px", md: "75px" }}>
+    <>
+    {/* <Sidebar/> */}
+    <div>
+      <Navbar bg="primary" variant="dark">
+      
+      <img src={Logo} className="logo"></img>  
+        <Container className="cont">
+          <div>
+          <Navbar.Brand href="#home" onClick={()=>{setUser(false);setNotary(false);setMarketplace(false)}}>
+           
+            <strong>World Of Wealth </strong>| admin panel</Navbar.Brand>
+            </div>
+            <div>
+          <Nav className="me-auto">
+            <Nav.Link  href="#users" onClick={()=>{ console.log("admin in dahboard is",admin);setUser(true);setNotary(false);setMarketplace(false)}}><strong>USERS</strong></Nav.Link>
+            <Nav.Link href="#notaries" onClick={()=>{setUser(false);setNotary(true);setMarketplace(false)}}><strong>NOTARIES</strong></Nav.Link>
+            <Nav.Link href="#marketplace" onClick={()=>{setUser(false);setNotary(false);setMarketplace(true)}}><strong>MARKETPLACE</strong></Nav.Link>
+            <Nav.Link ></Nav.Link>
+            
+            
+          </Nav>
+          
+          </div>
+         
+        </Container>
+        <PersonIcon h={"36px"} w={"36px"} color="rgb(2, 117, 216)" background="white" borderRadius="10%"/>
+        <button className="logout-btn" onClick={()=>{logout(); window.location.reload()}}><div>Logout </div><div className="logout-icon"><BiArrowFromLeft/></div></button>
+      </Navbar></div>
+    {user==false && notary==false && marketplace==false && admin==true && <Flex flexDirection='column' pt={{ base: "120px", md: "75px" }}>
       <SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} spacing='24px' mb='20px'>
         <Card minH='125px'>
           <Flex direction='column'>
@@ -69,11 +197,11 @@ export default function Dashboard() {
                   color='gray.400'
                   fontWeight='bold'
                   textTransform='uppercase'>
-                  Today's Money
+                  Total Active Users
                 </StatLabel>
                 <Flex>
                   <StatNumber fontSize='lg' color={textColor} fontWeight='bold'>
-                    $53,897
+                   {usercount}
                   </StatNumber>
                 </Flex>
               </Stat>
@@ -83,7 +211,7 @@ export default function Dashboard() {
                 h={"45px"}
                 w={"45px"}
                 bg={iconBlue}>
-                <WalletIcon h={"24px"} w={"24px"} color={iconBoxInside} />
+                <PersonIcon h={"24px"} w={"24px"} color={iconBoxInside} />
               </IconBox>
             </Flex>
             <Text color='gray.400' fontSize='sm'>
@@ -108,11 +236,11 @@ export default function Dashboard() {
                   color='gray.400'
                   fontWeight='bold'
                   textTransform='uppercase'>
-                  Today's Users
+                  Total Active Notaries
                 </StatLabel>
                 <Flex>
                   <StatNumber fontSize='lg' color={textColor} fontWeight='bold'>
-                    $3,200
+                   {notariescount}
                   </StatNumber>
                 </Flex>
               </Stat>
@@ -122,7 +250,7 @@ export default function Dashboard() {
                 h={"45px"}
                 w={"45px"}
                 bg={iconBlue}>
-                <GlobeIcon h={"24px"} w={"24px"} color={iconBoxInside} />
+                <RocketIcon h={"24px"} w={"24px"} color={iconBoxInside} />
               </IconBox>
             </Flex>
             <Text color='gray.400' fontSize='sm'>
@@ -147,7 +275,7 @@ export default function Dashboard() {
                   color='gray.400'
                   fontWeight='bold'
                   textTransform='uppercase'>
-                  New Clients
+                  Admin Access
                 </StatLabel>
                 <Flex>
                   <StatNumber fontSize='lg' color={textColor} fontWeight='bold'>
@@ -161,7 +289,7 @@ export default function Dashboard() {
                 h={"45px"}
                 w={"45px"}
                 bg={iconBlue}>
-                <DocumentIcon h={"24px"} w={"24px"} color={iconBoxInside} />
+                <SupportIcon h={"24px"} w={"24px"} color={iconBoxInside} />
               </IconBox>
             </Flex>
             <Text color='gray.400' fontSize='sm'>
@@ -186,11 +314,11 @@ export default function Dashboard() {
                   color='gray.400'
                   fontWeight='bold'
                   textTransform='uppercase'>
-                  Total Sales
+                  Marketplace Products
                 </StatLabel>
                 <Flex>
                   <StatNumber fontSize='lg' color={textColor} fontWeight='bold'>
-                    $173,000
+                  {marketpcount}
                   </StatNumber>
                 </Flex>
               </Stat>
@@ -394,6 +522,10 @@ export default function Dashboard() {
           </Box>
         </Card>
       </Grid>
-    </Flex>
+    </Flex>}
+    {admin==true && user==true  && notary==false && marketplace==false && <List/>}
+    {admin==true && user==false  && notary==true && marketplace==false && <NotaryList/>}
+    {admin==true && user==false  && notary==false && marketplace==true && <Marketplace/>}
+    </>
   );
 }

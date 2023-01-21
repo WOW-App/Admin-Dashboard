@@ -1,0 +1,57 @@
+.form-page{
+    
+    margin: 20vh 20% 0px 20%;
+    height: 40vh;
+    width:60%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 20px;
+    padding:30px;
+    overflow-wrap:break-word;
+}
+.del-input{
+    display:flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 30px;
+}
+/* .cnf-del{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-wrap:break-word;
+} */
+.del-btn{
+    background-color: rgb(246, 76, 76);
+    color:white;
+    font-weight: 600;
+    height:10vh;
+    width: 15vw;
+    font-size: larger;
+    margin:6px;
+}
+.check{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: smaller;
+    white-space: nowrap;
+    overflow-wrap:break-word;
+    text-align: left;
+    margin-bottom: 10px;
+    
+}
+.del-btn-box{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.inp-id{
+    width:100%;
+   
+}
+
+.del-btn:disabled{
+    background-color: rgb(253, 133, 133);
+    color:white
+}

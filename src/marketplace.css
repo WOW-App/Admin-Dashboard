@@ -1,0 +1,117 @@
+.product-card{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width:90%;
+    height: 30vh;
+    background-color: inherit;
+    margin: 5vh 5%;
+    padding: 2%;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow-x:hidden;
+}
+
+.product-logo{
+    width:20%;
+    height:80%;
+    background-color: inherit;
+    
+}
+
+.product-desc{
+    width:65%;
+    height:100%;
+    display: inline-block;
+    
+}
+
+.product-bp{
+    width:10%;
+    height:100%;
+    
+}
+.pr-bp{
+    font-size: xxx-large;
+    color:green;
+    font-weight: 500;
+}
+.pr-meta{
+    font-size: small;
+}
+
+.heading{
+    margin: 25px 0% 0% 5%;
+    text-align: left;
+    text-decoration: none;
+    font-weight: 400;
+
+}
+.pr-feature{
+    font-size: small;
+    
+}
+.pr-brochure {
+    font-size: small;
+    color:blue;
+    text-decoration: underline;
+    text-align: right;
+}
+.pr-title{
+    text-decoration: underline;
+  
+    
+}
+.feature{
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+           line-clamp: 2; 
+   -webkit-box-orient: vertical;
+}
+.feature p{
+ 
+    text-overflow: ellipsis;
+}
+.func-btn{
+    width: 100%;
+    padding:20px;
+    height:5%;
+    background-color: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.action-btn{
+    background-color: rgb(54, 132, 250);
+    margin:0 10% 0 10%;
+    max-width: 20%;
+    height: 5%;
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+}
+.actn-btn{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+.actn-btn-edit{
+    background-color:whitesmoke;
+    color:rgb(33, 118, 246)
+}
+
+.actn-btn-delete{
+    background-color: whitesmoke;
+    color:rgb(255, 32, 32);
+}

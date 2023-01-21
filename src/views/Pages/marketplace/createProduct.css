@@ -1,0 +1,27 @@
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:8px;
+}
+.form-check{
+    margin:8px;
+    margin-left:20px;
+    
+}
+.form-check label{
+   width:200px;
+   margin:0
+    
+} 
+label{
+    width:150px;
+
+}
+button:disabled{
+    background-color: rgb(174, 174, 249);
+}
+button{
+    background-color: rgb(100, 100, 250);
+}

@@ -8,6 +8,7 @@ import Profile from "views/Dashboard/Profile.js";
 import SignIn from "views/Pages/SignIn.js";
 import SignUp from "views/Pages/SignUp.js";
 
+
 import {
   HomeIcon,
   StatsIcon,
@@ -26,6 +27,7 @@ var dashRoutes = [
     icon: <HomeIcon color='inherit' />,
     component: Dashboard,
     layout: "/admin",
+   
   },
   {
     path: "/tables",
@@ -35,6 +37,7 @@ var dashRoutes = [
     component: Tables,
     layout: "/admin",
   },
+  
   {
     path: "/billing",
     name: "Billing",
