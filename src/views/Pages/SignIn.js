@@ -61,7 +61,7 @@ function checkAdmin(){
     var roles=(response.data.userdata.roles);
     console.log(roles.length)
     for(let i=0;i<roles.length;i++){
-      //console.log(roles[i])
+      console.log(roles[i])
       if(roles[i].role=="admin"){
         check=true;
               
@@ -204,7 +204,7 @@ function SignIn() {
                variant='dark'
                fontWeight='bold'
                w='100%'
-               h='45'
+               h='45' 
                mb='24px'
                onClick={()=>{ if(phone!=null){phone=phone.split('')}else{phone=" "}; if(phone.length==10){setOtp(true) ; otpLogin(phone)}else{ console.log("enter valid phone number") ; phone=null}}}>
                Send OTP
@@ -241,7 +241,7 @@ function SignIn() {
                w='100%'
                h='45'
                mb='24px'
-               onClick={async()=>{await otpVerify() ; if(check==true){setAdmin(true); localStorage.setItem('Admin',true);localStorage.setItem('Token',JSON.stringify(token)) }else{localStorage.setItem('Admin',false); console.log("You dont have access to this")} }}>
+               onClick={async()=>{await otpVerify() ; if(check==true){setAdmin(true); console.log(token);localStorage.setItem('Admin',true);localStorage.setItem('Token',JSON.stringify(token)) }else{localStorage.setItem('Admin',false); console.log("You dont have access to this")} }}>
                SIGN IN
              </Button>
            </FormControl>

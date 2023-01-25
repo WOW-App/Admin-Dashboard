@@ -1,0 +1,39 @@
+
+.logo{
+
+height:8vh;
+margin-left: 20px;
+mix-blend-mode: multiply;
+}
+
+.cont{
+    margin-left: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.ham-b{
+    margin-right: 20px;
+    color: white;
+}
+.logout-btn{
+    display: flex;
+   margin:10px;
+    border:2px white;
+    color:rgb(4, 4, 55);
+    font-size: large;
+    background: white;
+    padding:5px;
+    font-weight: 600;
+   justify-content: space-between;
+   align-items: center;
+}
+.logout-icon{
+    margin-left: 5px;
+}
+.nav-main{
+    background: rgb(0,212,255);
+    background: linear-gradient(90deg, rgba(0,212,255,1) 17%, rgba(9,9,121,1) 55%, rgba(2,0,36,1) 100%);
+    height:60px;
+}
