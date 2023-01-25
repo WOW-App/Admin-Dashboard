@@ -30,13 +30,13 @@ axios(config)
 
 }
 
-export default function DeleteProduct(){
+export default function DeleteProduct(props){
     const[delCheck,setDelCheck]=React.useState(null)
     return(
         <>  <div className="form-page">
             <div className="del-input">
                 <label>Policy ID</label>
-                <input className="inp-id"type="text" onBlur={(e)=>{dataObj.policyid=e.target.value}} placeholder="policy id of the product to delete"/>
+                <input className="inp-id"type="text" onBlur={(e)=>{dataObj.policyid=e.target.value}} placeholder={props.select}/>
             </div>
             <div className="cnf-del">
                 <div className='check'>

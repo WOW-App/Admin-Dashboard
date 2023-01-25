@@ -12,14 +12,15 @@ import CreateProduct from "views/Pages/marketplace/createProduct";
 import DeleteProduct from "views/Pages/marketplace/deleteProduct";
 import EditProduct from "views/Pages/marketplace/editProduct";
 var token= localStorage.getItem('Token');
+var select=null;
+var valObj={};
 
 export default function Marketplace(){
     const [market,setMarket]=React.useState([]);
     const [create,setCreate] = React.useState(false)
     const [edit,setEdit] = React.useState(false)
     const [del,setDelete] = React.useState(false)
-    const [edito,setEdito] = React.useState(false)
-    const [delo,setDeleteo] = React.useState(false)
+    
     
     
     
@@ -52,22 +53,16 @@ export default function Marketplace(){
       return(
         <>
         {create==false && edit ==false && del==false &&<>
-        <div className="func-btn">
-          <button className="action-btn" onClick={()=>{setCreate(true)}}>
-            <BiPlus/> Add a product 
-          </button>
-          <button className="action-btn"  onClick={()=>{setEdit(true)}}>
-          <BiWrench/> Edit a product 
-          </button>
-          <button className="action-btn"  onClick={()=>{setDelete(true)}}>
-          <BiTrash/> Delete a product 
-          </button>
+       
+        
+        <div className="pr-pg-header">
+        <p className="pr-pg-heading">Products Present In Marketplace :</p>
+        <button className="pr-pg-button" onClick={()=>{setCreate(true) ; setEdit(false) ; setDelete(false)}}>Add a product</button>
         </div>
-        <h1 className="heading">Products Present In Marketplace :</h1>
         {Object.entries(market).map(([key, value], i) => {
                         return(
                             <div className="product-card">
-                              {edito==false && delo==false && <>
+                              
                                 <div className="product-logo">
                                      
                                      <img src={value.logo}></img>
@@ -90,36 +85,39 @@ export default function Marketplace(){
                                      <p>Boost Points</p>
                                      <p className="pr-bp">{value.boost_point}</p>
                                      <div className="actn-btn">
-                                       <button className="actn-btn-edit" onClick={()=>{setEdito(true);setDeleteo(false)}}><CiEdit size={25}/></button>
-                                       <button className="actn-btn-delete" onClick={()=>{setEdito(false);setDeleteo(true)}}><AiOutlineDelete size={25}/></button>
+                                       <button className="actn-btn-edit" onClick={()=>{valObj=value;select=value.policyid;setEdit(true);setDelete(false);setCreate(false)}}><CiEdit size={25}/></button>
+                                       <button className="actn-btn-delete" onClick={()=>{select=value.policyid;setEdit(false);setDelete(true);setCreate(false)}}><AiOutlineDelete size={25}/></button>
                                      </div>
                                  </div>
-                              </>}
-                              {edito==true && delo==false && <>
-                                <h1>Edit</h1>
-                                <div className="actn-btn">
-                                       
-                                       <button className="actn-btn-delete" onClick={()=>{setEdito(false);setDeleteo(false)}}><RiArrowGoBackLine size={25}/></button>
-                                     </div>
-                              </>}
-                              {edito==false && delo==true && <>
-                                <h1>Delete</h1>
-                                <div className="actn-btn">
-                                       
-                                       <button className="actn-btn-delete" onClick={()=>{setEdito(false);setDeleteo(false)}}><RiArrowGoBackLine size={25}/></button>
-                                     </div>
-                              </>}
+                              
+                              
                                     
        
                              </div>
                        )
                 
       
-                      })}  </>}
+                      })}  
+                      
+                      </>}
 
-{create==true && edit ==false && del==false &&<><CreateProduct/></>}
-{create==false && edit ==false && del==true &&<><DeleteProduct/></>}
-{create==false && edit ==true && del==false &&<><EditProduct/></>}
+{create==true && edit ==false && del==false &&<>
+  <button className="actn-btn-cancel" onClick={()=>{setEdit(false);setDelete(false);setCreate(false)}}><RiArrowGoBackLine size={25}/>Back</button>
+   
+<CreateProduct/></>}
+
+{edit==true && del==false && create==false &&<>
+  <button className="actn-btn-cancel" onClick={()=>{setEdit(false);setDelete(false)}}><RiArrowGoBackLine />Back</button>
+    <div className="edit-form">
+    <EditProduct select={select} valObj={valObj}/>                            
+    </div>
+</>}
+{edit==false && del==true && create==false &&<>
+  <button className="actn-btn-cancel" onClick={()=>{setEdit(false);setDelete(false)}}><RiArrowGoBackLine />Back</button>
+     <div className="delete-form">
+      <DeleteProduct select={select}/>                                
+      </div>
+</>}
 
                     
         

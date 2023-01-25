@@ -76,3 +76,34 @@ h1{
     font-weight: 400;
 
 }
+.notary-edit-btn{
+    color:rgb(20, 125, 206);
+}
+.notary-delete-btn{
+    color:rgb(252, 55, 55);
+}
+
+.nt-pg-header{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:10px 20px 25px 20px;
+}
+.nt-pg-heading{
+    font-size: larger;
+    text-decoration: none;
+    color:rgb(4, 4, 55) ;
+}
+.nt-pg-button{
+    height: 10vh;
+    width:12vw;
+    margin-right: 10px;
+    /* background-color: inherit;
+    color: rgb(4, 4, 55);; */
+    background: rgb(0,212,255);
+    /* background: linear-gradient(90deg, rgba(0,212,255,1) 17%, rgba(9,9,121,1) 55%, rgba(2,0,36,1) 100%); */
+    color: white;
+    font-size: large;
+    font-weight: 500;
+    overflow:inherit;
+}

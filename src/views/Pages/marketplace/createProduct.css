@@ -25,3 +25,10 @@ button:disabled{
 button{
     background-color: rgb(100, 100, 250);
 }
+.cat-sel{
+    width:100%;
+    height:35px;
+    border:0.3px  rgb(59, 58, 58);
+    border-radius: 5px;;
+}
+

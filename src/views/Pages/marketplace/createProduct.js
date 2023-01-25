@@ -87,7 +87,7 @@ export default function CreateProduct(){
   </div>
   <div className="form-group">
     <label for="exampleInputPassword1">Policy Id</label>
-    <input type="text" onBlur={(e)=>{dataObj.policyid=e.target.value}} className="form-control" id="exampleInputPassword1" placeholder=""/>
+    <input type="text" onBlur={(e)=>{dataObj.policyid=e.target.value}} className="form-control" id="exampleInputPassword1" placeholder="" />
   </div>
   <div className="form-group">
     <label for="exampleInputEmail1">Title</label>
@@ -114,8 +114,8 @@ export default function CreateProduct(){
   </div>
   <div className="form-group">
     <label for="exampleInputPassword1">Category</label>
-    <input type="text" onBlur={(e)=>{dataObj.category=e.target.value}} className="form-control" id="exampleInputPassword1" placeholder=""/>
-  </div>
+    <input type="text" onBlur={(e)=>{dataObj.category=e.target.value}} className="form-control" id="exampleInputEmail1"  placeholder=""/>
+    </div>
   <div className="form-group">
     <label for="exampleInputEmail1">Sub Category</label>
     <input type="text" onBlur={(e)=>{dataObj.subcategory=e.target.value}} className="form-control" id="exampleInputEmail1"  placeholder=""/>

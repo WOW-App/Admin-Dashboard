@@ -16,6 +16,9 @@ import { BiPlus } from "react-icons/bi";
 import CreateNotary from './notaries/createNotary';
 import EditNotary from './notaries/editNotary';
 import DeleteNotary from './notaries/deleteNotary';
+import { CiEdit } from "react-icons/ci";
+import { AiOutlineDelete } from "react-icons/ai";
+import { RiArrowGoBackLine } from "react-icons/ri";
 
 export default function NotaryList() {
   const [post, setPost] = React.useState(null);
@@ -50,7 +53,7 @@ export default function NotaryList() {
   return (
     <>
     {create==false && edit == false && del==false &&<>
-    <div className="func-btn">
+    {/* <div className="func-btn">
           <button className="action-btn" onClick={()=>{setCreate(true);setEdit(false);setDelete(false)}}>
             <BiPlus/> Add a notary 
           </button>
@@ -61,8 +64,11 @@ export default function NotaryList() {
           <BiTrash/> Delete a notary 
           </button>
         </div>
-        <br/>
-    <h1 className='heading'>Notaries Registered with WOW App</h1>
+        <br/> */}
+        <div className="nt-pg-header">
+    <p className='nt-ng-heading'>Notaries Registered with WOW App</p>
+    <button className="nt-pg-button" onClick={()=>{setCreate(true) ; setEdit(false) ; setDelete(false)}}>Add a notary</button>
+    </div>
     <br/><br/>
       <div>
 
@@ -77,6 +83,7 @@ export default function NotaryList() {
                    <th className="table-phone" id="th">Phone No.</th>
                    <th className="table-email" id="th"> Email Id</th>
                    <th className="table-aadhar" id="th"> Aadhar No.</th>
+                   <th className='rec-op'>Edit/Delete</th>
 
                 </tr>
                       {Object.entries(post.data).map(([key, value], i) => {
@@ -89,6 +96,13 @@ export default function NotaryList() {
                                 <td  className="table-phone">{value.phone}</td>
                                 <td className="table-email">{value.email}</td>
                                 <td  className="table-aadhar">{value.adhar_card}</td>
+                                <td className='rec-op'>
+                                <div className='rec-btn'>
+                                    <button className='notary-edit-btn' onClick={()=>{setCreate(false);setEdit(true);setDelete(false)}}><CiEdit size={25}/></button>
+                                    {""}
+                                    <button className='notary-delete-btn' onClick={()=>{setCreate(false);setEdit(false);setDelete(true)}}><AiOutlineDelete size={25}/></button>
+                                </div>
+                                </td>
                                
       
                            </tr>
@@ -101,9 +115,16 @@ export default function NotaryList() {
       </div>
 
       </>}
-      {create==true && edit==false && del==false && <CreateNotary/>}
-      {create==false && edit==true && del==false && <EditNotary/>}
-      {create==false && edit==false && del==true && <DeleteNotary/>}
+      {create==true && edit==false && del==false && <>
+      <button className="actn-btn-cancel" onClick={()=>{setCreate(false);setEdit(false);setDelete(false)}}><RiArrowGoBackLine/>Back</button>
+      <CreateNotary/></>}
+      {create==false && edit==true && del==false && <> 
+      <button className="actn-btn-cancel" onClick={()=>{setCreate(false);setEdit(false);setDelete(false)}}><RiArrowGoBackLine/>Back</button>
+      <EditNotary/>
+      </>}
+      {create==false && edit==false && del==true &&<>
+      <button className="actn-btn-cancel" onClick={()=>{setCreate(false);setEdit(false);setDelete(false)}}><RiArrowGoBackLine/>Back</button>
+      <DeleteNotary/></>}
 
       </>
  )

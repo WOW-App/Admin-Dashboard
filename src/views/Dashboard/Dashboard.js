@@ -156,7 +156,7 @@ export default function Dashboard() {
     <>
     {/* <Sidebar/> */}
     <div>
-      <Navbar bg="primary" variant="dark">
+      <Navbar bg="primary" variant="dark" className="nav-main">
       
       <img src={Logo} className="logo"></img>  
         <Container className="cont">

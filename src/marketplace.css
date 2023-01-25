@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: space-between;
     width:90%;
-    height: 30vh;
+    height: 40vh;
     background-color: inherit;
     margin: 5vh 5%;
     padding: 2%;
@@ -105,13 +105,49 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
+   padding: 0 10px 0 10px;
 }
 .actn-btn-edit{
-    background-color:whitesmoke;
+    background-color:inherit;
     color:rgb(33, 118, 246)
 }
 
 .actn-btn-delete{
-    background-color: whitesmoke;
+    background-color: inherit;
     color:rgb(255, 32, 32);
+}
+.actn-btn-cancel{
+    width:10vw;
+    height:6vh;
+    background-color: whitesmoke;
+    color: rgb(7, 134, 172);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
+    margin:0 0 25px 0px;
+    border-bottom-right-radius: 10px;
+}
+.pr-pg-header{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:10px 20px 25px 20px;
+}
+.pr-pg-heading{
+    font-size: larger;
+    text-decoration: none;
+    color:rgb(4, 4, 55) ;
+}
+.pr-pg-button{
+    height: 10vh;
+    width:12vw;
+    /* background-color: inherit;
+    color: rgb(4, 4, 55);; */
+    background: rgb(0,212,255);
+    background: linear-gradient(90deg, rgba(0,212,255,1) 17%, rgba(9,9,121,1) 55%, rgba(2,0,36,1) 100%);
+    color: white;
+    font-size: large;
+    font-weight: 500;
+    overflow:inherit;
 }

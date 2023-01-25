@@ -5,6 +5,9 @@ import { BiPlus } from "react-icons/bi";
 import CreateUser from './createUser';
 import DeleteUser from './users/userDelete';
 import EditUser from './users/userEdit';
+import { CiEdit } from "react-icons/ci";
+import { AiOutlineDelete } from "react-icons/ai";
+import { RiArrowGoBackLine } from "react-icons/ri";
 
 <link
   rel="stylesheet"
@@ -53,7 +56,7 @@ export default function list() {
 
   return (
     <>
-    <div className="func-btn">
+    {/* <div className="func-btn">
           <button className="action-btn" onClick={()=>{setCreate(true);setEdit(false);setDelete(false)}}>
             <BiPlus/> Add an user 
           </button>
@@ -64,7 +67,7 @@ export default function list() {
           <BiTrash/> Delete an user 
           </button>
         </div>
-        <br/>
+        <br/> */}
     {create ==false && edit == false && del==false && <>
   
     
@@ -81,6 +84,7 @@ export default function list() {
                    <th className="table-phone">Phone No.</th>
                    <th className="table-dob"> D.O.B</th>
                    <th className="table-wh"> Wealth Health</th>
+                   <th className="rec-op"> Edit/Delete</th>
 
                 </tr>
                       {Object.entries(post.userdata).map(([key, value], i) => {
@@ -92,6 +96,13 @@ export default function list() {
                                 <td  className="table-phone">{value.phone}</td>
                                 <td  className="table-dob">{value.dob}</td>
                                 <td  className="table-wh">{value.wh}</td>
+                                <td className="rec-op"> 
+                                <div className='rec-btn'>
+                                    <button className='user-edit-btn' onClick={()=>{setCreate(false);setEdit(true);setDelete(false)}}><CiEdit size={25}/></button>
+                                    {""}
+                                    <button className='user-delete-btn' onClick={()=>{setCreate(false);setEdit(false);setDelete(true)}}><AiOutlineDelete size={25}/></button>
+                                </div>
+                                </td>
       
                            </tr>
                         )
@@ -104,8 +115,13 @@ export default function list() {
       </>
       }
       {create ==true && edit == false && del==false && <><CreateUser/></>}
-      {create ==false && edit == true && del==false && <EditUser/>}
-      {create ==false && edit == false && del==true && <DeleteUser/>}
+      {create ==false && edit == true && del==false && <> 
+      <button className="actn-btn-cancel" onClick={()=>{setCreate(false);setEdit(false);setDelete(false)}}><RiArrowGoBackLine/>Back</button>
+      <EditUser/> </>}
+      {create ==false && edit == false && del==true && 
+      <>
+      <button className="actn-btn-cancel" onClick={()=>{setCreate(false);setEdit(false);setDelete(false)}}><RiArrowGoBackLine/>Back</button>
+      <DeleteUser/></>}
 
       </>
       

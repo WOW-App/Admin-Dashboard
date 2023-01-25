@@ -2,7 +2,7 @@ tbody{
     text-align: center;
 }
 .table-id{
-    width:7%;
+    width:5%;
     margin:0;
     padding:2px;
     
@@ -16,7 +16,7 @@ tbody{
 }
 
 .table-phone{
-    width:15%;
+    width:12%;
     margin-left:0;
     padding:2px;
     
@@ -32,6 +32,13 @@ tbody{
 
 .table-wh{
     width:9%;
+    /* margin-left:0;
+    padding:5px;
+     */
+}
+
+.rec-op{
+    width:5%;
     /* margin-left:0;
     padding:5px;
      */
@@ -78,4 +85,15 @@ tbody{
     font-weight: 400;
     margin-bottom: 100px;
 
+}
+.rec-btn{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.user-edit-btn{
+    color:rgb(20, 125, 206);
+}
+.user-delete-btn{
+    color:rgb(252, 55, 55);
 }
