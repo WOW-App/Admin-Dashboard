@@ -60,9 +60,9 @@ function checkAdmin(){
   .then(async function (response) {
    // console.log(JSON.stringify(response.data));
     var roles=(response.data.userdata.roles);
-    console.log(roles.length)
+    // console.log(roles.length)
     for(let i=0;i<roles.length;i++){
-      console.log(roles[i])
+      // console.log(roles[i])
       if(roles[i].role=="admin"){
         check=true;
               
