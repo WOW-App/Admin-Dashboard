@@ -1,31 +1,40 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></link>
 
 import axios from "axios";
 import React from "react";
+import './userEdit.css'
 var token = null;
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './userDelete.css';
 var id=null;
 var data=null;
-function takeId(e){
-    id=e.target.value;      
-    // console.log("id is",id);
-    
-    
+const formData=new FormData();
+
+
+const dataObj={
+  phone:null,
+  phone_status:null,
+  email_status:null,
+  kyc_status:null,
+  notary_status:null,
+  aa_status:null,
+  is_employee:null,
+  is_enterprise_admin:null,
+  companyId:null,
+  employeeId:null,
+  email:null,
+  userId:null
 }
-async function getUser(){
+async function editUser(id){
+  
+   dataObj.userId=id;
+   const data=JSON.stringify(dataObj);
+   
     
-   console.log("token is",token)
-   data=JSON.stringify({
-    "id":1,
-    "firstname":"kunal"
-    
-   })
-    token=await JSON.stringify(localStorage.getItem('Token'))
-   console.log("id is",id);
-   console.log("data is",data)
+
     var config = {
                 method: 'POST',
-                url: 'http://localhost:6969/api/user/update',
+                url: 'https://development.wowapp.tech/api/user/infoupdate',
                 headers: { 
                   'Content-Type': 'application/json',
                   'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzQxMTAwMTN9.X_Ssu9Yf_BRIm9xWujaMFKv-NcQT59WaqYQcXUdacxg",
@@ -37,7 +46,7 @@ async function getUser(){
               axios(config)
               .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                setUser((response.data));
+               
                 // console.log("post is",post)
               })
               .catch(function (error) {
@@ -45,97 +54,111 @@ async function getUser(){
               });
 }
 
-export default function EditUser() {
-    const [user,setUser]=React.useState(null);
-    const [show,setshow]=React.useState(false);
-
-    // React.useEffect(() => {
-    //     var config = {
-    //         method: 'POST',
-    //         url: 'http://localhost:6969/user/delete',
-    //         headers: { 
-    //           'Authorization': token,
-    //           'Cookie': 'connect.sid=s%3AEsIejijfclbeQ_J0fpUkqm61GzdoJYzH.w8vbzDyih6JEocfSjnWpC%2BdTt4bjYJkNz8j645UlQNU'
-    //         },
-    //         data:{
-    //             id:id
-    //         }
-    //       };
-          
-    //       axios(config)
-    //       .then(function (response) {
-    //         //console.log(JSON.stringify(response.data.data));
-    //         setPost((response.data));
-    //         console.log("post is",post)
-    //       })
-    //       .catch(function (error) {
-    //         console.log(error);
-    //       });
-          
-    //   }, []);
+export default function EditUser(props) {
+    
+    const [show,setShow]=React.useState(null);
     
 
-    // if (!post) return null;
-
-    
+       
     return (
         <>
-        
-        <div className="del-form">
-            <div className="del-user-data">
-           
-            {/* <label>UserID</label>
-            <input type="number" class="form-control" id="inputPassword" placeholder="id of user" onChange={(e)=>{takeId(e)}}></input> */}
-             </div>
-            {show==true && <div className="user-detail"> { Object.entries(user.userdata).map(([key, value], i) => {
-        
-        return (
-         <div>
-           
-                  
-                 <form>
-                     <div class="form-group row">
-                       <label for="inputPassword" class="col-sm-2 col-form-label">{key}</label>
-                       <div class="col-sm-10">
-                         <input type="text" class="form-control" id="inputPassword" placeholder={value}></input>
-                       </div>
-                       
-                     </div>
-                   </form>
-             
-      
-         </div>
-       
-         )})} </div>}
-            
-            <button className="act-btn" onClick={()=>{getUser();if(user){setshow(true)}}}>Update User</button>
-           
-
-        </div>
-    
-     
-    {/* { Object.entries(post.userdata[6]).map(([key, value], i) => {
-        
-           return (
-            <div>
-              
-                     
-                    <form>
-                        <div class="form-group row">
-                          <label for="inputPassword" class="col-sm-2 col-form-label">{key}</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputPassword" placeholder={value}></input>
-                          </div>
-                          
-                        </div>
-                      </form>
-                
-         
-            </div>
+        <form >
+        <div className="form-group">
+          <label>
+          User ID
+          </label>
+          <input className=" form-control"name="firstname" type="text" value={props.select}></input>
+          </div>
+        <div className="form-group">
+          <label>
+          phone
+          </label>
+          <input  className=" form-control" name="firstname" onBlur={(e)=>{dataObj.phone=e.target.value}} type="text"></input>
+          </div>
           
-            )})} */}
+          <div className="form-group">
+          <label>
+          email
+          </label>
+          <input na className=" form-control" me="firstname" onBlur={(e)=>{dataObj.email=e.target.value}} type="text"></input>
+          </div>
+          
+          <div className="form-group">
+          <label>
+          companyId
+          </label>
+          <input na className=" form-control" me="twitter" onBlur={(e)=>{dataObj.companyId=e.target.value}} type="number"></input>
+          </div>
+          <div className="form-group">
+          <label>
+          employeeId
+          </label>
+          <input na className=" form-control" me="telegram" onBlur={(e)=>{dataObj.employeeId=e.target.value}} type="text"></input>
+          </div>
+         
+          <div className="form-check">
+          
+          <input name="middlename" onBlur={(e)=>{if(e.target.checked){dataObj.phone_status=true}else{dataObj.phone_status=false}}} className="form-check-input" type="checkbox"></input>
+          <label>
+          phone_status
+          </label>
+          </div>
+          <div className="form-check">
+          
+          <input name="lastname" onBlur={(e)=>{if(e.target.checked){dataObj.email_status=true}else{dataObj.email_status=false}}} className="form-check-input" type="checkbox"></input>
+          
+          <label>
+          email_status
+          </label></div>
+          <div className="form-check">
+          
+          <input name="phone" onBlur={(e)=>{if(e.target.checked){dataObj.kyc_status="true"}else{dataObj.kyc_status="false"}}} className="form-check-input" type="checkbox"></input>
+          <label>
+          kyc_status
+          </label>
+          </div>
+          <div className="form-check">
+          
+          <input name="phone_status" onBlur={(e)=>{if(e.target.checked){dataObj.notary_status="true"}else{dataObj.notary_status="false"}}} className="form-check-input" type="checkbox"></input>
+          <label>
+          notary_status
+          </label>
+          </div>
+          <div className="form-check">
+          
+          <input name="gender" onBlur={(e)=>{if(e.target.checked){dataObj.aa_status="true"}else{dataObj.aa_status="false"}}} className="form-check-input" type="checkbox"></input>
+          <label>
+          aa_status
+          </label>
+          </div>
+          <div className="form-check">
+          
+          <input name="dob" onBlur={(e)=>{if(e.target.checked){dataObj.is_employee=true}else{dataObj.is_employee=false}}} className="form-check-input" type="checkbox"></input>
+          <label>
+          is_employee
+          </label>
+          </div>
+          <div className="form-check">
+          
+          <input name="instagram" onBlur={(e)=>{if(e.target.checked){dataObj.is_enterprise_admin=true}else{dataObj.is_enterprise_admin=false}}} className="form-check-input" type="checkbox"></input>
+          <label>
+          is_enterprise_admin
+          </label>
+          </div>
+          <br/>
+          <div className="form-check">
+          
+          <input name="instagram" onChange={(e)=>{if(e.target.checked){setShow(true)}else{setShow(null)}}} className="form-check-input" type="checkbox"></input>
+          <label>
+          <p>I agree to make changes</p>
+          </label>
+          </div>
+          <button  className="btn btn-primary" disabled={!show} onClick={()=>{editUser(props.select)}}>submit</button>
+          </form>
 
-</>
+
+         
+        </>
     
      
     )

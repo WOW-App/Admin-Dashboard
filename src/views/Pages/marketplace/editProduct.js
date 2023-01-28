@@ -42,13 +42,14 @@ const dataObj={
 
     
     
-    function productEdition(){
+    function productEdition(id){
+      dataObj.policyid=id;
         var data = JSON.stringify(dataObj);
         //console.log(data);
         
     var config = {
       method: 'post',
-      url: 'http://localhost:6969/api/marketplace/edit',
+      url: 'https://development.wowapp.tech/api/marketplace/edit',
       headers: { 
         'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzQxMTAwMTN9.X_Ssu9Yf_BRIm9xWujaMFKv-NcQT59WaqYQcXUdacxg", 
         'Content-Type': 'application/json'
@@ -58,7 +59,7 @@ const dataObj={
     
     axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      //console.log(JSON.stringify(response.data));
       
     })
     .catch(function (error) {
@@ -97,7 +98,7 @@ export default function EditProduct(props){
   </div>
   <div className="form-group">
     <label for="exampleInputPassword1">Policy Id</label>
-    <input type="text" onBlur={(e)=>{dataObj.policyid=e.target.value}} className="form-control" id="exampleInputPassword1" placeholder={props.select}/>
+    <input type="text" onBlur={(e)=>{dataObj.policyid=e.target.value}} className="form-control" id="exampleInputPassword1" value={props.select}/>
   </div>
   <div className="form-group">
     <label for="exampleInputEmail1">Title</label>
@@ -216,7 +217,7 @@ export default function EditProduct(props){
         The above info is valid
     </label>
   </div>
-  <button type="submit" className="btn btn-primary" disabled={!editPro} onClick={()=>{productEdition()}}>Edit Product</button>
+  <button type="submit" className="btn btn-primary" disabled={!editPro} onClick={()=>{productEdition(props.select)}}>Edit Product</button>
 </form>
                         
  

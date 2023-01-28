@@ -37,3 +37,8 @@ mix-blend-mode: multiply;
     background: linear-gradient(90deg, rgba(0,212,255,1) 17%, rgba(9,9,121,1) 55%, rgba(2,0,36,1) 100%);
     height:60px;
 }
+.admin-greeting{
+    font-size: larger;
+    text-align: center;
+    color:rgb(4, 4, 55);
+}

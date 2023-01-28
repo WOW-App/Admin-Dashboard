@@ -145,7 +145,7 @@
     /* background-color: inherit;
     color: rgb(4, 4, 55);; */
     background: rgb(0,212,255);
-    background: linear-gradient(90deg, rgba(0,212,255,1) 17%, rgba(9,9,121,1) 55%, rgba(2,0,36,1) 100%);
+    /* background: linear-gradient(90deg, rgba(0,212,255,1) 17%, rgba(9,9,121,1) 55%, rgba(2,0,36,1) 100%); */
     color: white;
     font-size: large;
     font-weight: 500;

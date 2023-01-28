@@ -24,7 +24,7 @@ const dataObj={
         
     var config = {
       method: 'post',
-      url: 'http://localhost:6969/api/notary_user/create',
+      url: 'https://development.wowapp.tech/api/notary_user/create',
       headers: { 
         'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzQxMTAwMTN9.X_Ssu9Yf_BRIm9xWujaMFKv-NcQT59WaqYQcXUdacxg", 
         'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ const dataObj={
     
     axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      //console.log(JSON.stringify(response.data));
     })
     .catch(function (error) {
       console.log(error);
