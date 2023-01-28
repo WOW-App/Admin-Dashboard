@@ -1,4 +1,5 @@
-import './notaryList.css'
+import './notaryList.css';
+var select;
 
 <link
   rel="stylesheet"
@@ -13,9 +14,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BiWrench } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
 import { BiPlus } from "react-icons/bi";
-import CreateNotary from './notaries/createNotary';
-import EditNotary from './notaries/editNotary';
-import DeleteNotary from './notaries/deleteNotary';
+import CreateNotary from './createNotary';
+import EditNotary from './editNotary';
+import DeleteNotary from './deleteNotary';
 import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
 import { RiArrowGoBackLine } from "react-icons/ri";
@@ -27,9 +28,10 @@ export default function NotaryList() {
   const [del,setDelete]=React.useState(false)
 
   React.useEffect(() => {
+    var token= localStorage.getItem('Token')
     var config = {
         method: 'get',
-        url: 'http://localhost:6969/api/notary_user/all',
+        url: 'https://development.wowapp.tech/api/notary_user/all',
         headers: { 
           'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzM0MjIyMTR9.q-_oBdDAJu0lQQvzQ74FRAbV2wBS8bov-E6yfxGQtGs', 
           'Cookie': 'connect.sid=s%3AEsIejijfclbeQ_J0fpUkqm61GzdoJYzH.w8vbzDyih6JEocfSjnWpC%2BdTt4bjYJkNz8j645UlQNU'
@@ -40,7 +42,7 @@ export default function NotaryList() {
       .then(function (response) {
         //console.log(JSON.stringify(response.data.data));
         setPost((response.data));
-        console.log("post is",post)
+        
       })
       .catch(function (error) {
         console.log(error);
@@ -53,20 +55,9 @@ export default function NotaryList() {
   return (
     <>
     {create==false && edit == false && del==false &&<>
-    {/* <div className="func-btn">
-          <button className="action-btn" onClick={()=>{setCreate(true);setEdit(false);setDelete(false)}}>
-            <BiPlus/> Add a notary 
-          </button>
-          <button className="action-btn" onClick={()=>{setCreate(false);setEdit(true);setDelete(false)}}>
-          <BiWrench/> Edit a notary 
-          </button>
-          <button className="action-btn" onClick={()=>{setCreate(false);setEdit(false);setDelete(true)}}>
-          <BiTrash/> Delete a notary 
-          </button>
-        </div>
-        <br/> */}
+   
         <div className="nt-pg-header">
-    <p className='nt-ng-heading'>Notaries Registered with WOW App</p>
+    <p className='nt-pg-heading'>Notaries Registered with WOW App</p>
     <button className="nt-pg-button" onClick={()=>{setCreate(true) ; setEdit(false) ; setDelete(false)}}>Add a notary</button>
     </div>
     <br/><br/>
@@ -98,9 +89,9 @@ export default function NotaryList() {
                                 <td  className="table-aadhar">{value.adhar_card}</td>
                                 <td className='rec-op'>
                                 <div className='rec-btn'>
-                                    <button className='notary-edit-btn' onClick={()=>{setCreate(false);setEdit(true);setDelete(false)}}><CiEdit size={25}/></button>
+                                    <button className='notary-edit-btn' onClick={()=>{select=value.agent_id;setCreate(false);setEdit(true);setDelete(false)}}><CiEdit size={25}/></button>
                                     {""}
-                                    <button className='notary-delete-btn' onClick={()=>{setCreate(false);setEdit(false);setDelete(true)}}><AiOutlineDelete size={25}/></button>
+                                    <button className='notary-delete-btn' onClick={()=>{select=value.agent_id;setCreate(false);setEdit(false);setDelete(true)}}><AiOutlineDelete size={25}/></button>
                                 </div>
                                 </td>
                                
@@ -120,11 +111,11 @@ export default function NotaryList() {
       <CreateNotary/></>}
       {create==false && edit==true && del==false && <> 
       <button className="actn-btn-cancel" onClick={()=>{setCreate(false);setEdit(false);setDelete(false)}}><RiArrowGoBackLine/>Back</button>
-      <EditNotary/>
+      <EditNotary select={select}/>
       </>}
       {create==false && edit==false && del==true &&<>
       <button className="actn-btn-cancel" onClick={()=>{setCreate(false);setEdit(false);setDelete(false)}}><RiArrowGoBackLine/>Back</button>
-      <DeleteNotary/></>}
+      <DeleteNotary select={select}/></>}
 
       </>
  )

@@ -29,6 +29,7 @@ var otp=null;
 var logID=null;
 var token=null;
 var check=null;
+var name=null;
 
 
 
@@ -59,9 +60,9 @@ function checkAdmin(){
   .then(async function (response) {
    // console.log(JSON.stringify(response.data));
     var roles=(response.data.userdata.roles);
-    console.log(roles.length)
+    // console.log(roles.length)
     for(let i=0;i<roles.length;i++){
-      console.log(roles[i])
+      // console.log(roles[i])
       if(roles[i].role=="admin"){
         check=true;
               
@@ -117,6 +118,7 @@ async function otpVerify(){
   await axios(config)
   .then(async (response)=> {
     //console.log(JSON.stringify(response.data));
+    name=response.data.user.fullName;
     token="Bearer "+(response.data.token)
     if(response.data.otp_valid==true){
       //aconsole.log("you are now member of wow")
@@ -126,10 +128,29 @@ async function otpVerify(){
   
 }
 
+function setLocalstorage(){
+  if(!localStorage.getItem('Admin')){
+    localStorage.setItem('Admin',false);
+  
+  }
+  if(!localStorage.getItem('Token')){
+    localStorage.setItem('Token',null);
+  
+  }
+  if(!localStorage.getItem('Name')){
+    localStorage.setItem('Token',null);
+  
+  }
+  return;
+}
+
 
 function SignIn() {
   // Chakra color mode
+  setLocalstorage();
   
+  
+
   var signin=JSON.parse(localStorage.getItem('Admin'));
   const [otp,setOtp]=useState(false);
   const [admin,setAdmin]=useState(signin);
@@ -241,7 +262,7 @@ function SignIn() {
                w='100%'
                h='45'
                mb='24px'
-               onClick={async()=>{await otpVerify() ; if(check==true){setAdmin(true); console.log(token);localStorage.setItem('Admin',true);localStorage.setItem('Token',JSON.stringify(token)) }else{localStorage.setItem('Admin',false); console.log("You dont have access to this")} }}>
+               onClick={async()=>{await otpVerify() ; if(check==true){setAdmin(true); console.log(token);localStorage.setItem('Admin',true);localStorage.setItem('Token',JSON.stringify(token));localStorage.setItem('Name',JSON.stringify(name)) }else{localStorage.setItem('Admin',false); console.log("You dont have access to this")} }}>
                SIGN IN
              </Button>
            </FormControl>
@@ -291,7 +312,7 @@ function SignIn() {
      </Flex>
    </Flex>}
 
-   {admin==true && <><Dashboard/></>}
+   {admin==true && <><Dashboard name={name}/></>}
    
 
 

@@ -7,8 +7,8 @@ import Logo from './favicon.png'
 import './Dashboard.css';
 import Hamburger from 'hamburger-react';
 
-import Notaries from "notaries";
-import Marketplace from "marketplace";
+
+import Marketplace from "views/Pages/marketplace/marketplace";
 import {BiArrowFromLeft} from "react-icons/bi";
 import axios from "axios";
 // Chakra imports
@@ -37,8 +37,8 @@ import Card from "components/Card/Card.js";
 import BarChart from "components/Charts/BarChart";
 import LineChart from "components/Charts/LineChart";
 import IconBox from "components/Icons/IconBox";
-import List from "views/Pages/list";
-import NotaryList from "views/Pages/notaryList";
+import UserList from "views/Pages/users/userList";
+import NotaryList from "views/Pages/notaries/notaryList";
 // Custom icons
 import {
   CartIcon,
@@ -77,7 +77,7 @@ function logout(){
 
 
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   const [usercount,setUsercount]=useState(0);
   const [notariescount,setNotariescount]=useState(0);
   const [marketpcount,setMarketpcount]=useState(0);
@@ -86,7 +86,7 @@ export default function Dashboard() {
       
       var config = {
         method: 'get',
-        url: 'http://localhost:6969/api/user/count',
+        url: 'https://development.wowapp.tech/api/dash/count',
         headers: { 
           'Cookie': 'connect.sid=s%3AIKXKRINJ7qGKDO4Jg4hAFYtjSrDQIQWc.ir6iQKxm%2FkK99Rde8TJGhZemZEquUXuB2WQooDmDlo4'
         }
@@ -94,47 +94,17 @@ export default function Dashboard() {
       
       axios(config)
       .then(function (response) {
+        //console.log(JSON.stringify(response.data))
         setUsercount(JSON.stringify(response.data.users));
-        console.log("users are",{usercount})
+        setNotariescount(JSON.stringify(response.data.notaries))
+        setMarketpcount(JSON.stringify(response.data.marketplace))
+        // console.log("users are",{usercount})
       })
       .catch(function (error) {
         console.log(error);
       });
 
-      var config = {
-        method: 'get',
-        url: 'http://localhost:6969/api/notary/count',
-        headers: { 
-          'Cookie': 'connect.sid=s%3AIKXKRINJ7qGKDO4Jg4hAFYtjSrDQIQWc.ir6iQKxm%2FkK99Rde8TJGhZemZEquUXuB2WQooDmDlo4'
-        }
-      };
       
-      axios(config)
-      .then(function (response) {
-        setNotariescount(JSON.stringify(response.data.notaries));
-        console.log("notariescount are",{notariescount})
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-      var config = {
-        method: 'get',
-        url: 'http://localhost:6969/api/marketplace/count',
-        headers: { 
-          'Cookie': 'connect.sid=s%3AIKXKRINJ7qGKDO4Jg4hAFYtjSrDQIQWc.ir6iQKxm%2FkK99Rde8TJGhZemZEquUXuB2WQooDmDlo4'
-        }
-      };
-      
-      axios(config)
-      .then(function (response) {
-        setMarketpcount(JSON.stringify(response.data.marketplace));
-        console.log("marketpcount are",{marketpcount})
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
     }
     data()
 
@@ -167,7 +137,7 @@ export default function Dashboard() {
             </div>
             <div>
           <Nav className="me-auto">
-            <Nav.Link  href="#users" onClick={()=>{ console.log("admin in dahboard is",admin);setUser(true);setNotary(false);setMarketplace(false)}}><strong>USERS</strong></Nav.Link>
+            <Nav.Link  href="#users" onClick={()=>{ setUser(true);setNotary(false);setMarketplace(false)}}><strong>USERS</strong></Nav.Link>
             <Nav.Link href="#notaries" onClick={()=>{setUser(false);setNotary(true);setMarketplace(false)}}><strong>NOTARIES</strong></Nav.Link>
             <Nav.Link href="#marketplace" onClick={()=>{setUser(false);setNotary(false);setMarketplace(true)}}><strong>MARKETPLACE</strong></Nav.Link>
             <Nav.Link ></Nav.Link>
@@ -181,7 +151,9 @@ export default function Dashboard() {
         <PersonIcon h={"36px"} w={"36px"} color="rgb(2, 117, 216)" background="white" borderRadius="10%"/>
         <button className="logout-btn" onClick={()=>{logout(); window.location.reload()}}><div>Logout </div><div className="logout-icon"><BiArrowFromLeft/></div></button>
       </Navbar></div>
-    {user==false && notary==false && marketplace==false && admin==true && <Flex flexDirection='column' pt={{ base: "120px", md: "75px" }}>
+    {user==false && notary==false && marketplace==false && admin==true && <>
+    <div className="admin-greeting">Welcome To The Dashboard {props.name || localStorage.getItem('Name')}</div>
+    <Flex flexDirection='column' pt={{ base: "120px", md: "75px" }}>
       <SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} spacing='24px' mb='20px'>
         <Card minH='125px'>
           <Flex direction='column'>
@@ -522,8 +494,8 @@ export default function Dashboard() {
           </Box>
         </Card>
       </Grid>
-    </Flex>}
-    {admin==true && user==true  && notary==false && marketplace==false && <List/>}
+    </Flex></>}
+    {admin==true && user==true  && notary==false && marketplace==false && <UserList/>}
     {admin==true && user==false  && notary==true && marketplace==false && <NotaryList/>}
     {admin==true && user==false  && notary==false && marketplace==true && <Marketplace/>}
     </>

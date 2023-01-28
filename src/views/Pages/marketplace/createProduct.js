@@ -44,7 +44,7 @@ function productCreation(){
     
 var config = {
   method: 'post',
-  url: 'http://localhost:6969/api/marketplace/create',
+  url: 'https://development.wowapp.tech/api/marketplace/create',
   headers: { 
     'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzQxMTAwMTN9.X_Ssu9Yf_BRIm9xWujaMFKv-NcQT59WaqYQcXUdacxg", 
     'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ var config = {
 
 axios(config)
 .then(function (response) {
-  console.log(JSON.stringify(response.data));
+  //console.log(JSON.stringify(response.data));
 })
 .catch(function (error) {
   console.log(error);

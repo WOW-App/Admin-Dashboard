@@ -1,13 +1,15 @@
-import './list.css';
-import { BiWrench } from "react-icons/bi";
-import { BiTrash } from "react-icons/bi";
-import { BiPlus } from "react-icons/bi";
-import CreateUser from './createUser';
-import DeleteUser from './users/userDelete';
-import EditUser from './users/userEdit';
+import axios from "axios";
+import React ,{useState}from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './userList.css';
+
+import DeleteUser from '../users/userDelete';
+import EditUser from '../users/userEdit';
 import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
 import { RiArrowGoBackLine } from "react-icons/ri";
+
+var select=null;
 
 <link
   rel="stylesheet"
@@ -15,29 +17,25 @@ import { RiArrowGoBackLine } from "react-icons/ri";
   integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
   crossorigin="anonymous"
 />
+
 var myHeaders = new Headers();
 myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzEwODI4ODh9.efnPMsw_EMn7nNYvjYbgAr3XSnJYI1Q2fVd8hjp-tFs");
 myHeaders.append("Content-Type", "application/json");
 
-var raw = "";
 
 var requestOptions = {
   method: 'POST',
   headers: myHeaders,
-  //body: raw,
   redirect: 'follow'
 };
 
 
-var tmp = "NNNNN";
 
-import axios from "axios";
-import React ,{useState}from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Table from 'react-bootstrap/Table'
-const baseURL = "http://localhost:6969/dash/users";
 
-export default function list() {
+const baseURL = "https://development.wowapp.tech/dash/users";
+
+export default function UserList() {
+
   const [post, setPost] = React.useState(null);
   const [create,setCreate]=useState(false);
   const [edit,setEdit]=useState(false);
@@ -56,23 +54,11 @@ export default function list() {
 
   return (
     <>
-    {/* <div className="func-btn">
-          <button className="action-btn" onClick={()=>{setCreate(true);setEdit(false);setDelete(false)}}>
-            <BiPlus/> Add an user 
-          </button>
-          <button className="action-btn" onClick={()=>{setCreate(false);setEdit(true);setDelete(false)}}>
-          <BiWrench/> Edit an user 
-          </button>
-          <button className="action-btn" onClick={()=>{setCreate(false);setEdit(false);setDelete(true)}}>
-          <BiTrash/> Delete an user 
-          </button>
-        </div>
-        <br/> */}
+    
     {create ==false && edit == false && del==false && <>
   
-    
-    <h1 className='heading'>Users Registered with WOW App</h1>
-    <br/><br/>
+    <p className='heading'>Users Registered with WOW App</p>
+    <br/>
       <div>
           <table class="table table-light table-hover" striped bordered hover variant="dark">
       
@@ -98,9 +84,9 @@ export default function list() {
                                 <td  className="table-wh">{value.wh}</td>
                                 <td className="rec-op"> 
                                 <div className='rec-btn'>
-                                    <button className='user-edit-btn' onClick={()=>{setCreate(false);setEdit(true);setDelete(false)}}><CiEdit size={25}/></button>
+                                    <button className='user-edit-btn' onClick={()=>{select=value.id;setCreate(false);setEdit(true);setDelete(false)}}><CiEdit size={25}/></button>
                                     {""}
-                                    <button className='user-delete-btn' onClick={()=>{setCreate(false);setEdit(false);setDelete(true)}}><AiOutlineDelete size={25}/></button>
+                                    <button className='user-delete-btn' onClick={()=>{select=value.id;setCreate(false);setEdit(false);setDelete(true)}}><AiOutlineDelete size={25}/></button>
                                 </div>
                                 </td>
       
@@ -117,11 +103,11 @@ export default function list() {
       {create ==true && edit == false && del==false && <><CreateUser/></>}
       {create ==false && edit == true && del==false && <> 
       <button className="actn-btn-cancel" onClick={()=>{setCreate(false);setEdit(false);setDelete(false)}}><RiArrowGoBackLine/>Back</button>
-      <EditUser/> </>}
+      <EditUser select={select}/> </>}
       {create ==false && edit == false && del==true && 
       <>
       <button className="actn-btn-cancel" onClick={()=>{setCreate(false);setEdit(false);setDelete(false)}}><RiArrowGoBackLine/>Back</button>
-      <DeleteUser/></>}
+      <DeleteUser select={select}/></>}
 
       </>
       
