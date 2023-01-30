@@ -39,6 +39,8 @@ import LineChart from "components/Charts/LineChart";
 import IconBox from "components/Icons/IconBox";
 import UserList from "views/Pages/users/userList";
 import NotaryList from "views/Pages/notaries/notaryList";
+import AppointmentList from "views/Pages/appointmentlist"
+
 // Custom icons
 import {
   CartIcon,
@@ -81,6 +83,7 @@ export default function Dashboard(props) {
   const [usercount,setUsercount]=useState(0);
   const [notariescount,setNotariescount]=useState(0);
   const [marketpcount,setMarketpcount]=useState(0);
+  
   useEffect(()=>{
     function data(){
       
@@ -98,6 +101,7 @@ export default function Dashboard(props) {
         setUsercount(JSON.stringify(response.data.users));
         setNotariescount(JSON.stringify(response.data.notaries))
         setMarketpcount(JSON.stringify(response.data.marketplace))
+        setAppointment(JSON.stringify(response.data.appointment))
         // console.log("users are",{usercount})
       })
       .catch(function (error) {
@@ -106,6 +110,7 @@ export default function Dashboard(props) {
 
       
     }
+    
     data()
 
   },[])
@@ -118,7 +123,9 @@ export default function Dashboard(props) {
   const textTableColor = useColorModeValue("gray.500", "white");
   const [user,setUser]=useState(false);
   const [notary,setNotary]=useState(false);
+  const [appointment,setAppointment]=useState(false);
   const [marketplace,setMarketplace]=useState(false);
+  
 
   const { colorMode } = useColorMode();
 
@@ -131,15 +138,16 @@ export default function Dashboard(props) {
       <img src={Logo} className="logo"></img>  
         <Container className="cont">
           <div>
-          <Navbar.Brand href="#home" onClick={()=>{setUser(false);setNotary(false);setMarketplace(false)}}>
+          <Navbar.Brand href="#home" onClick={()=>{setUser(false);setAppointment(false);setNotary(false);setMarketplace(false)}}>
            
             <strong>World Of Wealth </strong>| admin panel</Navbar.Brand>
             </div>
             <div>
           <Nav className="me-auto">
-            <Nav.Link  href="#users" onClick={()=>{ setUser(true);setNotary(false);setMarketplace(false)}}><strong>USERS</strong></Nav.Link>
-            <Nav.Link href="#notaries" onClick={()=>{setUser(false);setNotary(true);setMarketplace(false)}}><strong>NOTARIES</strong></Nav.Link>
-            <Nav.Link href="#marketplace" onClick={()=>{setUser(false);setNotary(false);setMarketplace(true)}}><strong>MARKETPLACE</strong></Nav.Link>
+            <Nav.Link  href="#users" onClick={()=>{ setUser(true);setNotary(false); setAppointment(false);setMarketplace(false)}}><strong>USERS</strong></Nav.Link>
+            <Nav.Link href="#notaries" onClick={()=>{setUser(false);setNotary(true);setMarketplace(false);setAppointment(false)}}><strong>NOTARIES</strong></Nav.Link>
+            <Nav.Link href="#appointments" onClick={()=>{setUser(false);setNotary(false);setMarketplace(false);setAppointment(true)}}><strong>APPOINTMENTS</strong></Nav.Link>
+             <Nav.Link href="#marketplace" onClick={()=>{setUser(false);setNotary(false);appointment==false;setMarketplace(true);setAppointment(false)}}><strong>MARKETPLACE</strong></Nav.Link>
             <Nav.Link ></Nav.Link>
             
             
@@ -151,7 +159,7 @@ export default function Dashboard(props) {
         <PersonIcon h={"36px"} w={"36px"} color="rgb(2, 117, 216)" background="white" borderRadius="10%"/>
         <button className="logout-btn" onClick={()=>{logout(); window.location.reload()}}><div>Logout </div><div className="logout-icon"><BiArrowFromLeft/></div></button>
       </Navbar></div>
-    {user==false && notary==false && marketplace==false && admin==true && <>
+    {user==false && notary==false &&  appointment==false && marketplace==false && admin==true && <>
     <div className="admin-greeting">Welcome To The Dashboard {props.name || localStorage.getItem('Name')}</div>
     <Flex flexDirection='column' pt={{ base: "120px", md: "75px" }}>
       <SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} spacing='24px' mb='20px'>
@@ -309,7 +317,50 @@ export default function Dashboard(props) {
               </Text>
               Since last month
             </Text>
+            
           </Flex>
+          
+        </Card>
+        <Card minH='125px'>
+          <Flex direction='column'>
+            <Flex
+              flexDirection='row'
+              align='center'
+              justify='center'
+              w='100%'
+              mb='25px'>
+              <Stat me='auto'>
+                <StatLabel
+                  fontSize='xs'
+                  color='gray.400'
+                  fontWeight='bold'
+                  textTransform='uppercase'>
+                  Marketplace Products
+                </StatLabel>
+                <Flex>
+                  <StatNumber fontSize='lg' color={textColor} fontWeight='bold'>
+                  
+                  </StatNumber>
+                </Flex>
+              </Stat>
+              <IconBox
+                borderRadius='50%'
+                as='box'
+                h={"45px"}
+                w={"45px"}
+                bg={iconBlue}>
+                <CartIcon h={"24px"} w={"24px"} color={iconBoxInside} />
+              </IconBox>
+            </Flex>
+            <Text color='gray.400' fontSize='sm'>
+              <Text as='span' color='green.400' fontWeight='bold'>
+                +8.12%{" "}
+              </Text>
+              Since last month
+            </Text>
+            
+          </Flex>
+          
         </Card>
       </SimpleGrid>
       <Grid
@@ -495,9 +546,11 @@ export default function Dashboard(props) {
         </Card>
       </Grid>
     </Flex></>}
-    {admin==true && user==true  && notary==false && marketplace==false && <UserList/>}
-    {admin==true && user==false  && notary==true && marketplace==false && <NotaryList/>}
-    {admin==true && user==false  && notary==false && marketplace==true && <Marketplace/>}
+    {admin==true && user==true  && notary==false && marketplace==false && appointment==false && <UserList/>}
+    {admin==true && user==false  && notary==true && marketplace==false && appointment==false && <NotaryList/>}
+    {admin==true && user==false  && notary==false && marketplace==true && appointment==false && <Marketplace/>}
+    {admin==true && user==false  && notary==false && marketplace==false && appointment==true && <AppointmentList/>}
+
     </>
   );
 }
