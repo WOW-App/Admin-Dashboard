@@ -30,6 +30,7 @@ var logID=null;
 var token=null;
 var check=null;
 var name=null;
+var lstoken=null;
 
 
 
@@ -119,7 +120,8 @@ async function otpVerify(){
   .then(async (response)=> {
     //console.log(JSON.stringify(response.data));
     name=response.data.user.fullName;
-    token="Bearer "+(response.data.token)
+    token="Bearer "+(response.data.token);
+    lstoken=response.data.token;
     if(response.data.otp_valid==true){
       //aconsole.log("you are now member of wow")
       checkAdmin()
@@ -138,7 +140,7 @@ function setLocalstorage(){
   
   }
   if(!localStorage.getItem('Name')){
-    localStorage.setItem('Token',null);
+    localStorage.setItem('Name',null);
   
   }
   return;
@@ -262,7 +264,7 @@ function SignIn() {
                w='100%'
                h='45'
                mb='24px'
-               onClick={async()=>{await otpVerify() ; if(check==true){setAdmin(true); console.log(token);localStorage.setItem('Admin',true);localStorage.setItem('Token',JSON.stringify(token));localStorage.setItem('Name',JSON.stringify(name)) }else{localStorage.setItem('Admin',false); console.log("You dont have access to this")} }}>
+               onClick={async()=>{await otpVerify() ; if(check==true){setAdmin(true); console.log(token);localStorage.setItem('Admin',true);localStorage.setItem('Token',lstoken);localStorage.setItem('Name',JSON.stringify(name)) }else{localStorage.setItem('Admin',false); console.log("You dont have access to this")} }}>
                SIGN IN
              </Button>
            </FormControl>

@@ -68,6 +68,7 @@ var admin=true;
 function logout(){
   localStorage.setItem('Token',null);
   localStorage.setItem('Admin',false);
+  localStorage.setItem('Name',null)
   admin=JSON.parse(localStorage.getItem('Admin'))
 }
 

@@ -37,6 +37,7 @@ price:null,
 discount:null
 }
 
+var token = "Bearer "+localStorage.getItem('Token')
 
 function productCreation(){
     var data = JSON.stringify(dataObj);
@@ -46,7 +47,7 @@ var config = {
   method: 'post',
   url: 'https://development.wowapp.tech/api/marketplace/create',
   headers: { 
-    'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzQxMTAwMTN9.X_Ssu9Yf_BRIm9xWujaMFKv-NcQT59WaqYQcXUdacxg", 
+    'Authorization': token, 
     'Content-Type': 'application/json'
   },
   data : data

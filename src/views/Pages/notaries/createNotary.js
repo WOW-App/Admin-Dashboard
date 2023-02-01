@@ -17,6 +17,7 @@ const dataObj={
     latitude:null
     
     }
+    var token = "Bearer "+localStorage.getItem('Token')
 
     function notaryCreation(){
         var data = JSON.stringify(dataObj);
@@ -26,7 +27,7 @@ const dataObj={
       method: 'post',
       url: 'https://development.wowapp.tech/api/notary_user/create',
       headers: { 
-        'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzQxMTAwMTN9.X_Ssu9Yf_BRIm9xWujaMFKv-NcQT59WaqYQcXUdacxg", 
+        'Authorization': token, 
         'Content-Type': 'application/json'
       },
       data : data
