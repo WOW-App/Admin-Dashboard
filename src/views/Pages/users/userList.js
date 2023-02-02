@@ -8,6 +8,7 @@ import EditUser from '../users/userEdit';
 import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
 import { RiArrowGoBackLine } from "react-icons/ri";
+var token=null;
 
 var select=null;
 
@@ -19,7 +20,7 @@ var select=null;
 />
 
 var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzEwODI4ODh9.efnPMsw_EMn7nNYvjYbgAr3XSnJYI1Q2fVd8hjp-tFs");
+myHeaders.append("Authorization", token);
 myHeaders.append("Content-Type", "application/json");
 
 
@@ -43,6 +44,7 @@ export default function UserList() {
 
 
   React.useEffect(() => {
+    token="Bearer "+localStorage.getItem('Token')
     axios.post(baseURL,requestOptions).then((response) => {
       setPost(response.data);
 

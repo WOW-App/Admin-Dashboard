@@ -21,6 +21,8 @@ import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
 import { RiArrowGoBackLine } from "react-icons/ri";
 
+var token = "Bearer "+localStorage.getItem('Token')
+
 export default function NotaryList() {
   const [post, setPost] = React.useState(null);
   const [create,setCreate]=React.useState(false);
@@ -33,7 +35,7 @@ export default function NotaryList() {
         method: 'get',
         url: 'https://development.wowapp.tech/api/notary_user/all',
         headers: { 
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzM0MjIyMTR9.q-_oBdDAJu0lQQvzQ74FRAbV2wBS8bov-E6yfxGQtGs', 
+          'Authorization': token, 
           'Cookie': 'connect.sid=s%3AEsIejijfclbeQ_J0fpUkqm61GzdoJYzH.w8vbzDyih6JEocfSjnWpC%2BdTt4bjYJkNz8j645UlQNU'
         }
       };

@@ -7,8 +7,6 @@ var token = null;
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './userDelete.css';
 var id=null;
-var data=null;
-const formData=new FormData();
 
 
 const dataObj={
@@ -27,6 +25,7 @@ const dataObj={
 }
 async function editUser(id){
   
+   token="Bearer "+localStorage.getItem('Token');
    dataObj.userId=id;
    const data=JSON.stringify(dataObj);
    
@@ -37,7 +36,7 @@ async function editUser(id){
                 url: 'https://development.wowapp.tech/api/user/infoupdate',
                 headers: { 
                   'Content-Type': 'application/json',
-                  'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzQxMTAwMTN9.X_Ssu9Yf_BRIm9xWujaMFKv-NcQT59WaqYQcXUdacxg",
+                  'Authorization':token,
                   'Cookie': 'connect.sid=s%3A5d2QrM35ucZ_FHzJP9y6kkxTdAlMaxxM.VwFiBktnA2BUBHPwZyZTD82GgrK0fh%2FL6jme9axj7rg'
                 },
                  data:data
@@ -45,7 +44,7 @@ async function editUser(id){
               
               axios(config)
               .then(function (response) {
-                console.log(JSON.stringify(response.data));
+               // console.log(JSON.stringify(response.data));
                
                 // console.log("post is",post)
               })

@@ -11,7 +11,7 @@ import { RiArrowGoBackLine } from "react-icons/ri";
 import CreateProduct from "views/Pages/marketplace/createProduct";
 import DeleteProduct from "views/Pages/marketplace/deleteProduct";
 import EditProduct from "views/Pages/marketplace/editProduct";
-var token= localStorage.getItem('Token');
+var token = "Bearer "+localStorage.getItem('Token');
 var select=null;
 var valObj={};
 

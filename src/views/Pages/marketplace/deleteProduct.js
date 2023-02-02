@@ -1,6 +1,7 @@
 import './deleteProduct.css'
 import axios from 'axios'
 import React from 'react';
+var token = "Bearer "+localStorage.getItem('Token')
 
 const dataObj={
     policyid:null
@@ -15,7 +16,7 @@ var config = {
   method: 'post',
   url: 'https://development.wowapp.tech/api/marketplace/delete',
   headers: { 
-    'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzQxMTAwMTN9.X_Ssu9Yf_BRIm9xWujaMFKv-NcQT59WaqYQcXUdacxg", 
+    'Authorization': token, 
     'Content-Type': 'application/json'
   },
   data : data
