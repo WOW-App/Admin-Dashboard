@@ -264,7 +264,7 @@ function SignIn() {
                       w='100%'
                       h='45'
                       mb='24px'
-                      onClick={async () => { await otpVerify(); if (check == true) { setAdmin(true); console.log(token); localStorage.setItem('Admin', true); localStorage.setItem('Token', token); localStorage.setItem('Name', JSON.stringify(name)) } else { localStorage.setItem('Admin', false); console.log("You dont have access to this"); alert("Only Admin account can access dashboard"); } }}>
+                      onClick={async () => { await otpVerify(); if (check == true) { setAdmin(true); console.log(token); localStorage.setItem('Admin', true); localStorage.setItem('Token', token); localStorage.setItem('Name', name) } else { localStorage.setItem('Admin', false); console.log("You dont have access to this"); alert("Only Admin account can access dashboard"); } }}>
                       SIGN IN
                     </Button>
                   </FormControl>
