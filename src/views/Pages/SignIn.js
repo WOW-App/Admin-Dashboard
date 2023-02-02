@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React,{useState} from "react";
 import axios from "axios";
 import './SignIn.css'
 import Dashboard from "../Dashboard/Dashboard";
@@ -23,123 +23,125 @@ import {
 import signInImage from "assets/img/signInImage.png";
 import { FaApple, FaFacebook, FaGoogle } from "react-icons/fa";
 import { move } from "react-big-calendar";
-var phone = null;
-var mobile = null;
-var otp = null;
-var logID = null;
-var token = null;
-var check = null;
-var name = null;
+var phone=null;
+var mobile=null;
+var otp=null;
+var logID=null;
+var token=null;
+var check=null;
+var name=null;
 
 
 
 
-function phoneNo(e) {
-  phone = e.target.value
-  mobile = phone
 
-}
-function otpField(e) {
-  otp = e.target.value
+function phoneNo(e){
+  phone=e.target.value
+  mobile=phone
 
 }
+function otpField(e){
+  otp=e.target.value
+  
+}
 
-function checkAdmin() {
+function checkAdmin(){
   //console.log("token is",token)
   var config = {
     method: 'get',
     url: 'https://development.wowapp.tech/dash/user',
     headers: {
-      'Authorization': token,
+      'Authorization': "Bearer " +token,
       'Content-Type': 'application/json',
-
+      
     }
   };
-
+  
   axios(config)
-    .then(async function (response) {
-      // console.log(JSON.stringify(response.data));
-      var roles = (response.data.userdata.roles);
-      // console.log(roles.length)
-      for (let i = 0; i < roles.length; i++) {
-        // console.log(roles[i])
-        if (roles[i].role == "admin") {
-          check = true;
-
-          break;
-        }
-
+  .then(async function (response) {
+   // console.log(JSON.stringify(response.data));
+    var roles=(response.data.userdata.roles);
+    // console.log(roles.length)
+    for(let i=0;i<roles.length;i++){
+      // console.log(roles[i])
+      if(roles[i].role=="admin"){
+        check=true;
+              
+        break;
       }
-    })
+     
+    }
+  })
 }
-function otpLogin(phone) {
-
+function otpLogin(phone){
+  
   var data = JSON.stringify({
-    "mobile": mobile
+    "mobile":mobile
   });
-
+  
   var config = {
     method: 'post',
     url: 'https://development.wowapp.tech/api/auth/otp/gen',
-    headers: {
+    headers: { 
       'Content-Type': 'application/json'
     },
-    data: data
+    data : data
   };
-
+  
   axios(config)
-    .then(function (response) {
-      //console.log(JSON.stringify(response.data));
-      logID = (response.data.LogID)
-      //console.log("log id is",logID)
-    })
+  .then(function (response) {
+    //console.log(JSON.stringify(response.data));
+    logID=(response.data.LogID)
+    //console.log("log id is",logID)
+  })
 
 
 }
 
-async function otpVerify() {
-
+async function otpVerify(){
+  
   //console.log("otp is",logID,otp,typeof(mobile))
   var data = JSON.stringify({
-    "LogID": logID,
-    "otp": otp,
+    "LogID":  logID,
+    "otp":otp,
     "phone": mobile
   });
-
+  
   var config = {
     method: 'post',
     url: 'https://development.wowapp.tech/api/auth/otp/verify',
-    headers: {
+    headers: { 
       'Content-Type': 'application/json'
     },
-    data: data
+    data : data
   };
-
+  
   await axios(config)
-    .then(async (response) => {
-      //console.log(JSON.stringify(response.data));
-      name = response.data.user.fullName;
-      token = "Bearer " + (response.data.token)
-      if (response.data.otp_valid == true) {
-        //aconsole.log("you are now member of wow")
-        checkAdmin()
-      }
-    })
-
+  .then(async (response) => {
+    //console.log(JSON.stringify(response.data));
+    name = response.data.user.fullName;
+    token =(response.data.token)
+  
+    if (response.data.otp_valid == true) {
+      //aconsole.log("you are now member of wow")
+      checkAdmin()
+    }
+  })
+  
 }
 
-function setLocalstorage() {
-  if (!localStorage.getItem('Admin')) {
-    localStorage.setItem('Admin', false);
-
+function setLocalstorage(){
+  if(!localStorage.getItem('Admin')){
+    localStorage.setItem('Admin',false);
+  
   }
-  if (!localStorage.getItem('Token')) {
-    localStorage.setItem('Token', null);
-
+  if(!localStorage.getItem('Token')){
+    localStorage.setItem('Token',null);
+  
   }
   if (!localStorage.getItem('Name')) {
-    localStorage.setItem('Token', null);
-
+    localStorage.setItem('Name', null);
+  
   }
   return;
 }
@@ -148,20 +150,20 @@ function setLocalstorage() {
 function SignIn() {
   // Chakra color mode
   setLocalstorage();
+  
+  
 
-
-
-  var signin = JSON.parse(localStorage.getItem('Admin'));
-  const [otp, setOtp] = useState(false);
-  const [admin, setAdmin] = useState(signin);
+  var signin=JSON.parse(localStorage.getItem('Admin'));
+  const [otp,setOtp]=useState(false);
+  const [admin,setAdmin]=useState(signin);
   const textColor = useColorModeValue("gray.700", "white");
   const bgForm = useColorModeValue("white", "navy.800");
-
+  
 
   return (
     <>
-
-      {admin == false &&
+    
+    {admin == false &&
         <Flex position='relative' mb='40px'>
           <Flex
             minH={{ md: "1000px" }}
@@ -262,7 +264,7 @@ function SignIn() {
                       w='100%'
                       h='45'
                       mb='24px'
-                      onClick={async () => { await otpVerify(); if (check == true) { setAdmin(true); console.log(token); localStorage.setItem('Admin', true); localStorage.setItem('Token', JSON.stringify(token)); localStorage.setItem('Name', JSON.stringify(name)) } else { localStorage.setItem('Admin', false); console.log("You dont have access to this"); alert("Only Admin account can access dashboard"); } }}>
+                      onClick={async () => { await otpVerify(); if (check == true) { setAdmin(true); console.log(token); localStorage.setItem('Admin', true); localStorage.setItem('Token', token); localStorage.setItem('Name', name) } else { localStorage.setItem('Admin', false); console.log("You dont have access to this"); alert("Only Admin account can access dashboard"); } }}>
                       SIGN IN
                     </Button>
                   </FormControl>
