@@ -34,7 +34,7 @@ var name = null;
 
 
 
-function phoneNo(e){
+function phoneNo(e) {
   phone = e.target.value
   mobile = phone
 
@@ -50,7 +50,7 @@ function checkAdmin() {
     method: 'get',
     url: 'https://development.wowapp.tech/dash/user',
     headers: {
-      'Authorization': "Bearer " +token,
+      'Authorization': token,
       'Content-Type': 'application/json',
 
     }
@@ -119,8 +119,7 @@ async function otpVerify() {
     .then(async (response) => {
       //console.log(JSON.stringify(response.data));
       name = response.data.user.fullName;
-      token =(response.data.token)
-    
+      token = "Bearer " + (response.data.token)
       if (response.data.otp_valid == true) {
         //aconsole.log("you are now member of wow")
         checkAdmin()
@@ -139,7 +138,7 @@ function setLocalstorage() {
 
   }
   if (!localStorage.getItem('Name')) {
-    localStorage.setItem('Name', null);
+    localStorage.setItem('Token', null);
 
   }
   return;
@@ -263,7 +262,7 @@ function SignIn() {
                       w='100%'
                       h='45'
                       mb='24px'
-                      onClick={async () => { await otpVerify(); if (check == true) { setAdmin(true); console.log(token); localStorage.setItem('Admin', true); localStorage.setItem('Token', token); localStorage.setItem('Name', JSON.stringify(name)) } else { localStorage.setItem('Admin', false); console.log("You dont have access to this"); alert("Only Admin account can access dashboard"); } }}>
+                      onClick={async () => { await otpVerify(); if (check == true) { setAdmin(true); console.log(token); localStorage.setItem('Admin', true); localStorage.setItem('Token', JSON.stringify(token)); localStorage.setItem('Name', JSON.stringify(name)) } else { localStorage.setItem('Admin', false); console.log("You dont have access to this"); alert("Only Admin account can access dashboard"); } }}>
                       SIGN IN
                     </Button>
                   </FormControl>
