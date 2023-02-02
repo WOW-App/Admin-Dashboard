@@ -30,7 +30,7 @@ export default function NotaryList() {
   const [del,setDelete]=React.useState(false)
 
   React.useEffect(() => {
-    var token= localStorage.getItem('Token')
+    
     var config = {
         method: 'get',
         url: 'https://development.wowapp.tech/api/notary_user/all',
