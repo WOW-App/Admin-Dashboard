@@ -36,7 +36,7 @@ import axios from "axios";
 import React ,{useState}from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table'
-const baseURL = "http://localhost:6969/api/appointments/get";
+const baseURL = "https://development.wowapp.tech/api/appointments/get";
 
 export default function AppointmentList() {
   const [post, setPost] = React.useState(null);
