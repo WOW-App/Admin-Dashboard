@@ -2,156 +2,119 @@
 
 import axios from "axios";
 import React from "react";
-import { CiEdit } from "react-icons/ci";
-import { AiOutlineDelete } from "react-icons/ai";
-import Dropdown from 'react-dropdown';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-dropdown/style.css';
 import { useState } from "react";
+import './updateappointment.css'
+
+var post=[];
+var selNotary=null;
+
+var dataObj={
+    userId:null,
+    agent_id:null,
+    appointmentId:null
+}
 
 
-var options = [
-    "one", "two", "three"
-];
-const defaultOption = options[0];
+var token = "Bearer "+localStorage.getItem('Token');
+async function setAppointment(dataObj){
+    var data = JSON.stringify(dataObj);
+    console.log("data in set appo",dataObj)
+    var config = {
+        method: 'post',
+        url: 'http://localhost:6969/api/appointment/assign_notary',
+        headers: { 
+          'Authorization': token, 
+          'Cookie': 'connect.sid=s%3AEsIejijfclbeQ_J0fpUkqm61GzdoJYzH.w8vbzDyih6JEocfSjnWpC%2BdTt4bjYJkNz8j645UlQNU',
+          'Content-Type': 'application/json'
+        },
+        data:data
+      };
+      
+      axios(config)
+      .then(function (response) {
+        console.log(response)
+        //console.log(JSON.stringify(response.data.data));
+        // post=((response.data.data));
+        // console.log("post is",post)
+        
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+}
 
-var token = null;
-import 'bootstrap/dist/css/bootstrap.min.css';
+async function  getNotaryDetails(){
+    var config = {
+        method: 'get',
+        url: 'https://development.wowapp.tech/api/notary_user/all',
+        headers: { 
+          'Authorization': token, 
+          'Cookie': 'connect.sid=s%3AEsIejijfclbeQ_J0fpUkqm61GzdoJYzH.w8vbzDyih6JEocfSjnWpC%2BdTt4bjYJkNz8j645UlQNU'
+        }
+      };
+      
+      axios(config)
+      .then(function (response) {
+        //console.log(JSON.stringify(response.data.data));
+        post=((response.data.data));
+       //console.log("post is",post)
+        
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-// var id=null;
-// var data=null;
-// const formData=new FormData();
-// var myHeaders = new Headers();
-// myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzEwODI4ODh9.efnPMsw_EMn7nNYvjYbgAr3XSnJYI1Q2fVd8hjp-tFs");
-// myHeaders.append("Content-Type", "application/json");
-
-// var requestOptions = {
-//     method: 'POST',
-//     headers: myHeaders,
-//     redirect: 'follow'
-//   };
-
-
-
-
-
-
-
-var config2 = {
-    method: 'GET',
-    url: "http://localhost:6969/api/notary_user/all",
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjgzMjkwNjAwMDkiLCJpYXQiOjE2NzQzMDE2MDh9.luC88RN3PChVgh7V9lDWBzC89mzg5C-lXgAPKVdzySU",
-        'Cookie': 'connect.sid=s%3A5d2QrM35ucZ_FHzJP9y6kkxTdAlMaxxM.VwFiBktnA2BUBHPwZyZTD82GgrK0fh%2FL6jme9axj7rg'
-    },
-
-};
-
-
+}
 
 export default function UpdateAppointment(props) {
-
-
-    const ids = props.notId;
-
-    const baseURL = "http://localhost:6969/api/appointment/details";
-    var dataObj = { id: null }
-    dataObj.id = ids;
-    const data = JSON.stringify(dataObj);
-    //console.log(data)
-
-
-    var config = {
-        method: 'POST',
-        url: baseURL,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjgzMjkwNjAwMDkiLCJpYXQiOjE2NzQzMDE2MDh9.luC88RN3PChVgh7V9lDWBzC89mzg5C-lXgAPKVdzySU",
-            'Cookie': 'connect.sid=s%3A5d2QrM35ucZ_FHzJP9y6kkxTdAlMaxxM.VwFiBktnA2BUBHPwZyZTD82GgrK0fh%2FL6jme9axj7rg'
-        },
-        data: data
-    };
-
-    const [post, setPost] = React.useState(0)
-    const [post2, setPost2] = React.useState(0)
-
-    React.useEffect(() => {
-
-        axios(config).then((response) => {
-            setPost(response.data.appod)
-        });
-
-
-        axios(config2).then((response) => {
-            setPost2(response.data.data)
-        });
-
-        {
-            Object.entries(post2).map(([key, value], i) => {
-                var d = (value.name, value.id, "+", value.agent_id)
-                options.push(d)
-
-            })
-        }
-
-    }, [])
-
-
-    var appointdata = {
-        userId: null
-    }
-    async function appointnotary(idd) {
-       // appointdata.userId = idd;
-       // var datan = JSON.stringify(appointdata);
-        console.log(appointdata,idd,"this is checking")
-    }
-
-    // 
-
+    getNotaryDetails();
+    dataObj.userId=props.notId.userId
+    dataObj.appointmentId=props.notId.appointmentId
+    
+      
     return (
 
 
-        <div>
-
-            <h1>welcome to update page</h1>
-
+        <div className="notary-assign">
+            <div>
             <table class="table table-light table-hover" striped bordered hover variant="dark">
 
                 <tbody>
                     <tr>
-                        <th className="table-id" id="th">Notary Id</th>
-                        <th className="table-licence" id="th"> Address</th>
+                        
                         <th className="table-fullname" id="th">User ID</th>
                         <th className="table-address" id="th"> Appointment ID</th>
-                        <th className="table-phone" id="th">HomeVisit</th>
-                        <th className="table-email" id="th"> Status</th>
-                        <th className="table-aadhar" id="th"> Time</th>
-                        <th className="table-aadhar" id="th"> Time</th>
-                        <th className='rec-op'>Appoint</th>
+                        <th className="table-id" id="th">Notary Id</th>
+                       
+                        
 
                     </tr>
-                    {Object.entries(post).map(([key, value], i) => {
-                        return (
-                            <tr class="align-center ">
-                                <td className="table-id" >{value.id}</td>
-                                <td className="table-fullname">{value.address}</td>
-                                <td className="table-fullname">{value.userId}</td>
-                                <td className="table-email">{value.appointmentId}</td>
-                                <td className="table-name">{value.homeVisit}</td>
-                                <td className="table-dob">{value.status}</td>
-                                <td className="table-wh">{value.time}</td>
-                                <td className="table-wh">{value.date}</td>
-                                <Dropdown options={options}  onBlur={(e)=>{appointdata.userId=e.target.options}}    placeholder="Select an option" />;
-                            </tr>
+                    <tr class="align-center ">
+                                <td className="table-dob">{props.notId.userId}</td>
+                                <td className="table-wh">{props.notId.appointmentId}</td>
+                                <td className="table-wh">
+                                    <select onChange={(e)=>{dataObj.agent_id=((e.target.value).split("-")[0].split(" ")[0])}}>
+                                    {Object.entries(post).map(([key, value], i) => {
+                        return(
+                          <option >{value.agent_id + " - " + value.name}</option>
                         )
-                    })}
+                
+      
+                      })}
+                                    </select>
+                                </td>
+                                
+                            </tr>
+                       
                 </tbody>
-                <tbody ><div className='rec-btn ' class="padding 10">
-                    <button className='btn btn-success' value={props.select} onClick={() => { appointnotary(appointdata) }}></button>
+             </table>
+             </div>
+            <div>
+                <button type="submit" className="btn btn-primary" onClick={()=>{console.log(dataObj);setAppointment(dataObj)}}>Submit</button>
+            </div>
 
-                </div></tbody>,
-
-            </table>
 
         </div>
     )
