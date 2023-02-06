@@ -8,6 +8,8 @@ import EditUser from './users/userEdit';
 import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
 import { RiArrowGoBackLine } from "react-icons/ri";
+import UpdateAppointment from "./appointment/updateappointment";
+var notId=null;
 
 
 <link
@@ -98,7 +100,7 @@ export default function AppointmentList() {
                                 <td  className="table-phone">{value.time}</td>                               
                                 <td  className="table-wh">{value.status}</td>
                                  <div className='rec-btn'>
-                                    <button className='user-edit-btn' onClick={()=>{setCreate(false);setEdit(true);setDelete(false)}}><CiEdit size={25}/></button>
+                                    <button className='user-edit-btn' onClick={()=>{notId=value.id;setCreate(false);setEdit(true);setDelete(false)}}><CiEdit size={25}/></button>
                                     {""}
                                     <button className='user-delete-btn' onClick={()=>{setCreate(false);setEdit(false);setDelete(true)}}><AiOutlineDelete size={25}/></button>
                                 </div>
@@ -113,7 +115,7 @@ export default function AppointmentList() {
       </>
       }
       {create ==true && edit == false && del==false && <><CreateUser/></>}
-      {create ==false && edit == true && del==false && <EditUser/>}
+      {create ==false && edit == true && del==false && <UpdateAppointment notId={notId}/>}
       {create ==false && edit == false && del==true && <DeleteUser/>}
 
       </>
