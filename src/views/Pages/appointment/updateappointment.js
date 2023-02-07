@@ -20,7 +20,7 @@ var dataObj={
 var token = "Bearer "+localStorage.getItem('Token');
 async function setAppointment(dataObj){
     var data = JSON.stringify(dataObj);
-    console.log("data in set appo",dataObj)
+    // console.log("data in set appo",dataObj)
     var config = {
         method: 'post',
         url: 'https://development.wowapp.tech/api/appointment/assign_notary',
@@ -34,7 +34,7 @@ async function setAppointment(dataObj){
       
       axios(config)
       .then(function (response) {
-        console.log(response)
+        alert(response.data.msg)
         //console.log(JSON.stringify(response.data.data));
         // post=((response.data.data));
         // console.log("post is",post)

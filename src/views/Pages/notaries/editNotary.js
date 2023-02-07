@@ -41,6 +41,7 @@ const dataObj={
     axios(config)
     .then(function (response) {
       //console.log(JSON.stringify(response.data));
+      alert(response.data.msg)
     })
     .catch(function (error) {
       console.log(error);

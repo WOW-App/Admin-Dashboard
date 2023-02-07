@@ -45,6 +45,7 @@ async function editUser(id){
               axios(config)
               .then(function (response) {
                // console.log(JSON.stringify(response.data));
+               alert(response.data.msg)
                
                 // console.log("post is",post)
               })
@@ -152,7 +153,7 @@ export default function EditUser(props) {
           <p>I agree to make changes</p>
           </label>
           </div>
-          <button  className="btn btn-primary" disabled={!show} onClick={()=>{editUser(props.select)}}>submit</button>
+          <button  className="btn btn-primary" disabled={!show} onClick={(e)=>{e.preventDefault;editUser(props.select)}}>submit</button>
           </form>
 
 
