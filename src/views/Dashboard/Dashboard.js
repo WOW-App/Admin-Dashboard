@@ -39,7 +39,7 @@ import LineChart from "components/Charts/LineChart";
 import IconBox from "components/Icons/IconBox";
 import UserList from "views/Pages/users/userList";
 import NotaryList from "views/Pages/notaries/notaryList";
-import AppointmentList from "views/Pages/appointmentlist"
+import AppointmentList from "../Pages/appointment/appointmentlist";
 
 // Custom icons
 import {
