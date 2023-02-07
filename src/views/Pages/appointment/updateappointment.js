@@ -98,7 +98,7 @@ export default function UpdateAppointment(props) {
                                     <select onChange={(e)=>{dataObj.agent_id=((e.target.value).split("-")[0].split(" ")[0])}}>
                                     {Object.entries(post).map(([key, value], i) => {
                                           return(
-                                                <option >{value.agent_id + " - " + value.name}</option>
+                                                <option >{value.agent_id + " - " + value.name +" "+"["+value.id+"]"}</option>
                                               )
                                     })}
                                     </select>
