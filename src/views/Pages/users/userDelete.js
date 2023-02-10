@@ -28,6 +28,7 @@ async function delUser(id){
               axios(config)
               .then(function (response) {
                // console.log(JSON.stringify(response.data));
+               alert(response.data.msg)
                 
               })
               .catch(function (error) {
@@ -37,7 +38,7 @@ async function delUser(id){
 
 export default function DeleteUser(props) {
        const [user,setUser] = React.useState(false)
-
+       const [show,setShow]=React.useState(null);
 
     
     return (
@@ -48,7 +49,14 @@ export default function DeleteUser(props) {
             <label>UserID</label>
             <input type="number" class="form-control" id="inputPassword" value={props.select} onChange={(e)=>{takeId(e)}}></input>
             </div>
-            <button className="act-btn" onClick={()=>{delUser(props.select);if(user){setUser(true)}else{setUser("notFound")}}}>Delete User</button>
+            <div className="form-check">
+          
+          <input name="instagram" onChange={(e)=>{if(e.target.checked){setShow(true)}else{setShow(null)}}} className="form-check-input" type="checkbox"></input>
+          <label>
+          <p>I agree to delete the user</p>
+          </label>
+          </div>
+            <button className="act-btn"  disabled={!show} onClick={()=>{delUser(props.select);if(user){setUser(true)}else{setUser("notFound")}}}>Delete User</button>
            
 
         </div>

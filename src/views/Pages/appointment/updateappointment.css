@@ -1,0 +1,14 @@
+.notary-assign{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
+    width:60%;
+    margin:10% 25% 0 25%;
+    border-radius: 25px;
+}
+button{
+    margin:10px;
+   
+}

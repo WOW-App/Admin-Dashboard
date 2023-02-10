@@ -1,14 +1,15 @@
-//import './list.css';
-import { BiWrench } from "react-icons/bi";
-import { BiTrash } from "react-icons/bi";
-import { BiPlus } from "react-icons/bi";
-import CreateUser from './createUser';
-import DeleteUser from './users/userDelete';
-import EditUser from './users/userEdit';
 import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
 import { RiArrowGoBackLine } from "react-icons/ri";
+import { MdOutlineAssignment } from "react-icons/md";
 
+
+import UpdateAppointment from "./updateappointment";
+import DeleteAppo from "./deleteAppointment";
+
+import axios from "axios";
+import React ,{useState}from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 <link
   rel="stylesheet"
@@ -16,27 +17,10 @@ import { RiArrowGoBackLine } from "react-icons/ri";
   integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
   crossorigin="anonymous"
 />
-var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjkzNDAwMTc3NjMiLCJpYXQiOjE2NzEwODI4ODh9.efnPMsw_EMn7nNYvjYbgAr3XSnJYI1Q2fVd8hjp-tFs");
-myHeaders.append("Content-Type", "application/json");
-
-var raw = "";
-
-var requestOptions = {
-  method: 'GET',
-  headers: myHeaders,
-  //body: raw,
-  redirect: 'follow'
-};
 
 
-var tmp = "NNNNN";
 
-import axios from "axios";
-import React ,{useState}from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Table from 'react-bootstrap/Table'
-const baseURL = "https://development.wowapp.tech/api/appointments/get";
+var notId=null;
 
 export default function AppointmentList() {
   const [post, setPost] = React.useState(null);
@@ -46,29 +30,34 @@ export default function AppointmentList() {
 
 
   React.useEffect(() => {
-    axios.get(baseURL,requestOptions).then((response) => {
-      setPost(response.data)
+   
+    var token= "Bearer "+localStorage.getItem('Token')
 
-     
-    });
+    var config = {
+        method: 'get',
+        url: 'https://development.wowapp.tech/api/appointments/get',
+        headers: { 
+          'Authorization': token, 
+          'Cookie': 'connect.sid=s%3AEsIejijfclbeQ_J0fpUkqm61GzdoJYzH.w8vbzDyih6JEocfSjnWpC%2BdTt4bjYJkNz8j645UlQNU'
+        }
+      };
+      
+      axios(config)
+      .then(function (response) {
+        //console.log(JSON.stringify(response.data.data));
+        setPost((response.data));
+        
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 //console.log(post.appo)
   if (!post) return null;
 
   return (
     <>
-    <div className="func-btn">
-          <button className="action-btn"  onClick={()=>{setCreate(true);setEdit(false);setDelete(false)}}>
-            <BiPlus/> Add an appointment 
-          </button>
-          <button className="action-btn" onClick={()=>{setCreate(false);setEdit(true);setDelete(false)}}>
-          <BiWrench/> Edit an appointment 
-          </button>
-          <button className="action-btn" onClick={()=>{setCreate(false);setEdit(false);setDelete(true)}}>
-          <BiTrash/> Delete an appointment 
-          </button>
-        </div>
-        <br/>
+   
     {create ==false && edit == false && del==false && <>
   
     
@@ -85,7 +74,8 @@ export default function AppointmentList() {
                    <th className="table-email">Appointment Date</th>
                    <th className="table-phone">Time</th>        
                    <th className="table-wh"> Status</th>
-                   <th className="table-wh"> Edit/Delete</th>
+                   <th className="table-wh"> Assign Notary</th>
+                   <th className="table-wh"> Delete</th>
 
                 </tr>
                       {Object.entries(post.appo).map(([key, value], i) => {
@@ -97,11 +87,14 @@ export default function AppointmentList() {
                                 <td className="table-email">{value.date}</td>
                                 <td  className="table-phone">{value.time}</td>                               
                                 <td  className="table-wh">{value.status}</td>
+                                <td  className="table-wh">
                                  <div className='rec-btn'>
-                                    <button className='user-edit-btn' onClick={()=>{setCreate(false);setEdit(true);setDelete(false)}}><CiEdit size={25}/></button>
-                                    {""}
-                                    <button className='user-delete-btn' onClick={()=>{setCreate(false);setEdit(false);setDelete(true)}}><AiOutlineDelete size={25}/></button>
-                                </div>
+                                    <button className='user-edit-btn' onClick={()=>{notId=value;setCreate(false);setEdit(true);setDelete(false)}}><MdOutlineAssignment size={25}/></button>
+                                    </div></td>
+                                    <td  className="table-wh">
+                                    <div className='rec-btn'>
+                                    <button className='user-delete-btn' onClick={()=>{notId=[value.userId,value.appointmentId];setCreate(false);setEdit(false);setDelete(true)}}><AiOutlineDelete size={25}/></button>
+                                </div></td>
                            </tr>
                         )
                 
@@ -112,9 +105,15 @@ export default function AppointmentList() {
       </div>
       </>
       }
-      {create ==true && edit == false && del==false && <><CreateUser/></>}
-      {create ==false && edit == true && del==false && <EditUser/>}
-      {create ==false && edit == false && del==true && <DeleteUser/>}
+      
+      {create ==false && edit == true && del==false && <>
+        <button className="actn-btn-cancel" onClick={()=>{setCreate(false);setEdit(false);setDelete(false)}}><RiArrowGoBackLine/>Back</button>
+        <UpdateAppointment notId={notId}/>
+        </>}
+      {create ==false && edit == false && del==true && <>
+        <button className="actn-btn-cancel" onClick={()=>{setCreate(false);setEdit(false);setDelete(false)}}><RiArrowGoBackLine/>Back</button>
+        <DeleteAppo notId={notId}/>
+        </> }
 
       </>
       

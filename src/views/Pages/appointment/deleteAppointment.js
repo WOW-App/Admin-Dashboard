@@ -2,20 +2,22 @@
 import axios from 'axios'
 import React from 'react';
 
-var token = "Bearer "+localStorage.getItem('Token')
-
 const dataObj={
-    agent_id:null
+    userId:null,
+    appointmentId:null
 }
 
-function notaryDelete(id){
-  dataObj.agent_id=id;
+var token = "Bearer "+localStorage.getItem('Token')
+
+function appoDelete(notId){
+  dataObj.userId=notId[0];
+  dataObj.appointmentId=notId[1];
     var data = JSON.stringify(dataObj);
     //console.log(data);
     
 var config = {
   method: 'post',
-  url: 'https://development.wowapp.tech/api/notary_user/delete',
+  url: 'https://development.wowapp.tech/api/appointment/delete',
   headers: { 
     'Authorization': token, 
     'Content-Type': 'application/json'
@@ -34,21 +36,24 @@ axios(config)
 
 }
 
-export default function DeleteNotary(props){
+export default function DeleteAppo(props){
     const[delCheck,setDelCheck]=React.useState(null)
     return(
         <>  <div className="form-page">
+           
             <div className="del-input">
-                <label>Agent ID</label>
-                <input className="inp-id"type="text" onBlur={(e)=>{dataObj.agent_id=e.target.value}} value={props.select}/>
+                <label>Appointment </label>
+                <input className="inp-id"type="text" onBlur={(e)=>{dataObj.agent_id=e.target.value}} value={props.notId[1]}/>
+            
             </div>
+            
             <div className="cnf-del">
                 <div className='check'>
             <input type="checkbox" onChange={(e)=>{if(e.target.checked){setDelCheck(true)}else{setDelCheck(false)}}}/>
                 <label>I agree to delete the above mentioned agent from notary details</label>
                 </div>
                 <div className='del-btn-box'>
-                <button className='del-btn'  disabled={!delCheck}  onClick={()=>{notaryDelete(props.select)}}>Delete</button>
+                <button className='del-btn'  disabled={!delCheck}  onClick={()=>{appoDelete(props.notId)} } type="submit">Delete</button>
                 </div>
             </div>
             </div>
