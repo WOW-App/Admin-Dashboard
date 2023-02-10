@@ -25,7 +25,7 @@ const dataObj={
         
     var config = {
       method: 'post',
-      url: 'https://development.wowapp.tech/api/notary_user/create',
+      url: '/api/notary_user/create',
       headers: { 
         'Authorization': token, 
         'Content-Type': 'application/json'

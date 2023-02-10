@@ -27,7 +27,7 @@ export default function Marketplace(){
     useEffect(()=>{
       var config = {
         method: 'get',
-        url: 'https://development.wowapp.tech/api/marketplace/all',
+        url: '/api/marketplace/all',
         headers: { 
           'Authorization':token,
           'Cookie': 'connect.sid=s%3AjCJUF2lBvYHO3TcIvKWWJr7KLl7xXzje.ZFmku3q2Y3IjZK%2F2cDYGwN8ydWENlrQ%2FgL4axACahbA'

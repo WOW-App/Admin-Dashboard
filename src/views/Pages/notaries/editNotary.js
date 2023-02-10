@@ -30,7 +30,7 @@ const dataObj={
         
     var config = {
       method: 'post',
-      url: 'https://development.wowapp.tech/api/notary_user/edit',
+      url: '/api/notary_user/edit',
       headers: { 
         'Authorization': token, 
         'Content-Type': 'application/json'

@@ -49,7 +49,7 @@ function checkAdmin(){
   //console.log("token is",token)
   var config = {
     method: 'get',
-    url: 'https://development.wowapp.tech/dash/user',
+    url: '/dash/user',
     headers: {
       'Authorization': "Bearer " +token,
       'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ function otpLogin(phone){
   
   var config = {
     method: 'post',
-    url: 'https://development.wowapp.tech/api/auth/otp/gen',
+    url: '/api/auth/otp/gen',
     headers: { 
       'Content-Type': 'application/json'
     },

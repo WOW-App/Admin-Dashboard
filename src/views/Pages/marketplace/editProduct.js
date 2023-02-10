@@ -49,7 +49,7 @@ const dataObj={
         
     var config = {
       method: 'post',
-      url: 'https://development.wowapp.tech/api/marketplace/edit',
+      url: '/api/marketplace/edit',
       headers: { 
         'Authorization': token, 
         'Content-Type': 'application/json'

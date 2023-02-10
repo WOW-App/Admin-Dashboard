@@ -33,7 +33,7 @@ async function editUser(id){
 
     var config = {
                 method: 'POST',
-                url: 'https://development.wowapp.tech/api/user/infoupdate',
+                url: '/api/user/infoupdate',
                 headers: { 
                   'Content-Type': 'application/json',
                   'Authorization':token,

@@ -45,7 +45,7 @@ function productCreation(){
     
 var config = {
   method: 'post',
-  url: 'https://development.wowapp.tech/api/marketplace/create',
+  url: '/api/marketplace/create',
   headers: { 
     'Authorization': token, 
     'Content-Type': 'application/json'

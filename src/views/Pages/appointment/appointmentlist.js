@@ -35,7 +35,7 @@ export default function AppointmentList() {
 
     var config = {
         method: 'get',
-        url: 'https://development.wowapp.tech/api/appointments/get',
+        url: '/api/appointments/get',
         headers: { 
           'Authorization': token, 
           'Cookie': 'connect.sid=s%3AEsIejijfclbeQ_J0fpUkqm61GzdoJYzH.w8vbzDyih6JEocfSjnWpC%2BdTt4bjYJkNz8j645UlQNU'
