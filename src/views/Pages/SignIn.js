@@ -109,7 +109,7 @@ async function otpVerify(){
   
   var config = {
     method: 'post',
-    url: 'https://development.wowapp.tech/api/auth/otp/verify',
+    url: '/api/auth/otp/verify',
     headers: { 
       'Content-Type': 'application/json'
     },
