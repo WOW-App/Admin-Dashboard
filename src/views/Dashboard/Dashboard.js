@@ -90,7 +90,7 @@ export default function Dashboard(props) {
       
       var config = {
         method: 'get',
-        url: 'https://development.wowapp.tech/api/dash/count',
+        url: 'api/dash/count',
         headers: { 
           'Cookie': 'connect.sid=s%3AIKXKRINJ7qGKDO4Jg4hAFYtjSrDQIQWc.ir6iQKxm%2FkK99Rde8TJGhZemZEquUXuB2WQooDmDlo4'
         }

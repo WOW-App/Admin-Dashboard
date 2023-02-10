@@ -23,7 +23,7 @@ async function setAppointment(dataObj){
     // console.log("data in set appo",dataObj)
     var config = {
         method: 'post',
-        url: 'https://development.wowapp.tech/api/appointment/assign_notary',
+        url: '/api/appointment/assign_notary',
         headers: { 
           'Authorization': token, 
           'Cookie': 'connect.sid=s%3AEsIejijfclbeQ_J0fpUkqm61GzdoJYzH.w8vbzDyih6JEocfSjnWpC%2BdTt4bjYJkNz8j645UlQNU',
@@ -48,7 +48,7 @@ async function setAppointment(dataObj){
 async function  getNotaryDetails(){
     var config = {
         method: 'get',
-        url: 'https://development.wowapp.tech/api/notary_user/all',
+        url: '/api/notary_user/all',
         headers: { 
           'Authorization': token, 
           'Cookie': 'connect.sid=s%3AEsIejijfclbeQ_J0fpUkqm61GzdoJYzH.w8vbzDyih6JEocfSjnWpC%2BdTt4bjYJkNz8j645UlQNU'

@@ -15,7 +15,7 @@ function notaryDelete(id){
     
 var config = {
   method: 'post',
-  url: 'https://development.wowapp.tech/api/notary_user/delete',
+  url: '/api/notary_user/delete',
   headers: { 
     'Authorization': token, 
     'Content-Type': 'application/json'

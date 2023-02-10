@@ -16,7 +16,7 @@ async function delUser(id){
    
     var config = {
                 method: 'POST',
-                url: 'https://development.wowapp.tech/api/user/delete',
+                url: '/api/user/delete',
                 headers: { 
                   'Content-Type': 'application/json',
                   'Authorization': token,

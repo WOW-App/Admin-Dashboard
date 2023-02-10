@@ -33,7 +33,7 @@ var requestOptions = {
 
 
 
-const baseURL = "https://development.wowapp.tech/dash/users";
+const baseURL = "/dash/users";
 
 export default function UserList() {
 

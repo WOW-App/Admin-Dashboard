@@ -14,7 +14,7 @@ function productDelete(id){
     
 var config = {
   method: 'post',
-  url: 'https://development.wowapp.tech/api/marketplace/delete',
+  url: '/api/marketplace/delete',
   headers: { 
     'Authorization': token, 
     'Content-Type': 'application/json'

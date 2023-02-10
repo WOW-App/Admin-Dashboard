@@ -17,7 +17,7 @@ function appoDelete(notId){
     
 var config = {
   method: 'post',
-  url: 'https://development.wowapp.tech/api/appointment/delete',
+  url: '/api/appointment/delete',
   headers: { 
     'Authorization': token, 
     'Content-Type': 'application/json'
